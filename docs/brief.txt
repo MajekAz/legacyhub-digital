@@ -1,0 +1,1192 @@
+Create a brand-new commercial website project for:
+
+LegacyHub Digital Heritage
+
+Domain:
+https://legacyhubdigital.com
+
+Tagline:
+Digital Legacy Archives for Families, Leaders and Organisations.
+
+Primary brand message:
+Preserve a Life. Protect a Story. Connect Generations.
+
+==================================================
+IMPORTANT ARCHITECTURE RULE
+==================================================
+
+This must be a completely separate application from the existing Baba Muyi archive repository.
+
+Do not modify:
+MajekAz/baba-muyi-legacy
+
+Do not reuse the Baba Muyi production database, Supabase project, hosting configuration, authentication environment, or private family archive data.
+
+The Baba Muyi archive is an external flagship case study only.
+
+Create a completely separate repository/project for the commercial service.
+
+Suggested repository:
+MajekAz/legacyhub-digital
+
+LegacyHub Digital Heritage is the commercial business.
+
+LegacyHub is the underlying digital heritage technology/platform used to deliver client archive projects.
+
+The service is NOT being marketed as SaaS.
+
+==================================================
+BUSINESS PURPOSE
+==================================================
+
+LegacyHub Digital Heritage is a done-for-you Digital Legacy Archive service.
+
+The service helps:
+
+- families
+- parents and grandparents
+- diaspora families
+- traditional/community leaders
+- professionals
+- veterans
+- founders
+- entrepreneurs
+- communities
+- associations
+- religious organisations
+- institutions
+- businesses
+
+preserve:
+
+- biographies
+- life histories
+- photographs
+- documents
+- letters
+- audio
+- video
+- family memories
+- tributes
+- timelines
+- locations
+- oral history
+- documentary material
+
+Clients receive professionally designed digital legacy archives, normally on their own domain name.
+
+The commercial website exists primarily to:
+
+1. explain the service,
+2. demonstrate credibility,
+3. show the Baba Muyi flagship case study,
+4. generate qualified leads,
+5. support Facebook/Instagram/Google advertising,
+6. book consultations,
+7. send every lead into the LegacyHub Digital Google Workspace CRM.
+
+==================================================
+TECH STACK
+==================================================
+
+Use:
+
+- Next.js current stable architecture
+- TypeScript
+- Tailwind CSS
+- Zod server-side validation
+- Next.js Route Handlers
+- responsive accessible UI
+- Google Workspace CRM integration
+- Google Sheets
+- Google Apps Script
+
+Do NOT use Supabase as the lead/customer CRM.
+
+Do NOT create a Supabase leads table.
+
+Do NOT create a Supabase-backed sales CRM.
+
+If authentication or another unrelated future feature genuinely requires a database, report that separately before implementing it.
+
+For Phase 1, lead/customer data belongs in the Google Workspace CRM.
+
+==================================================
+BRAND
+==================================================
+
+Brand:
+LegacyHub Digital Heritage
+
+Short brand:
+LegacyHub Digital
+
+Domain:
+legacyhubdigital.com
+
+Tagline:
+Digital Legacy Archives for Families, Leaders and Organisations.
+
+Primary message:
+Preserve a Life. Protect a Story. Connect Generations.
+
+Visual direction:
+
+- premium heritage feel
+- modern but timeless
+- navy / deep heritage blue
+- warm cream
+- restrained gold
+- white
+- elegant serif headings
+- readable sans-serif body text
+- professional African heritage positioning
+- avoid funeral-home aesthetics
+- avoid generic SaaS styling
+- avoid excessive gradients
+- avoid generic startup visuals
+
+==================================================
+PUBLIC SITE STRUCTURE
+==================================================
+
+Create:
+
+/
+ /services
+ /how-it-works
+ /who-we-serve
+ /case-studies
+ /case-studies/baba-muyi
+ /packages
+ /about
+ /contact
+ /book-consultation
+ /privacy
+ /terms
+
+Create advertising landing pages:
+
+/landing/family-legacy
+/landing/diaspora-family-archive
+/landing/memorial-archive
+/landing/leaders-and-veterans
+/landing/organisations
+
+==================================================
+HOMEPAGE
+==================================================
+
+Hero:
+
+Eyebrow:
+DIGITAL HERITAGE & LEGACY ARCHIVES
+
+Heading:
+Preserve a Life. Protect a Story. Connect Generations.
+
+Copy:
+We create professionally designed digital legacy archives for families, leaders and organisations — preserving biographies, photographs, documents, memories, tributes and multimedia for future generations.
+
+Primary CTA:
+Book a Legacy Consultation
+
+Secondary CTA:
+See a Real Legacy Archive
+
+Secondary CTA:
+/case-studies/baba-muyi
+
+Homepage sections:
+
+- why digital legacy preservation matters
+- who we serve
+- what an archive can include
+- how the process works
+- Baba Muyi flagship case study
+- service packages
+- FAQ
+- consultation CTA
+- WhatsApp CTA when configured
+
+==================================================
+WHO WE SERVE
+==================================================
+
+Create dedicated cards/sections for:
+
+Parents & Grandparents
+
+Families
+
+Diaspora Families
+
+Traditional & Community Leaders
+
+Veterans & Professionals
+
+Founders & Entrepreneurs
+
+Communities & Organisations
+
+Descriptions should be concise, dignified and culturally appropriate.
+
+==================================================
+SERVICES
+==================================================
+
+Create service pages/content around:
+
+Digital Legacy Archives
+
+Family Heritage Websites
+
+Biography & Life Story Development
+
+Photo & Document Digitisation
+
+Archive Organisation
+
+Documentary & Oral History
+
+Tributes & Memories
+
+Family Contribution Systems
+
+Hosting & Archive Care
+
+Bespoke Heritage Projects
+
+Do not promise features or production services that cannot yet be delivered.
+
+==================================================
+PACKAGES
+==================================================
+
+Present four consultation-based service levels:
+
+Legacy Starter
+
+Family Heritage Archive
+
+Complete Digital Legacy Archive
+
+Documentary & Heritage Project
+
+Do not build ecommerce or checkout.
+
+Do not publish fixed prices unless explicitly approved later.
+
+Use:
+
+Request a Quote
+Book a Consultation
+
+Explain that pricing depends on archive size, research, media volume, design requirements and production complexity.
+
+==================================================
+BABA MUYI FLAGSHIP CASE STUDY
+==================================================
+
+Create:
+
+/case-studies/baba-muyi
+
+This must be a commercial case-study page, not a duplicate family archive.
+
+Use wording such as:
+
+The Tioluwalase Majekodunmi Family Archive is LegacyHub Digital Heritage’s flagship example of how a family story can be preserved through biography, timeline, photographs, documents, family memories, lessons, tributes and documentary material.
+
+External CTA:
+Explore the Live Archive
+
+URL:
+https://tioluwalasemajekodunmi.com
+
+Clearly explain that the visitor is leaving LegacyHub Digital Heritage to view the independent family archive.
+
+Do not copy:
+
+- private family information
+- admin data
+- authentication data
+- private media
+- unpublished archive content
+
+==================================================
+LEAD CRM ARCHITECTURE — GOOGLE WORKSPACE
+==================================================
+
+Do NOT use Supabase as the lead/customer CRM.
+
+LegacyHub Digital Heritage will use a custom Google Workspace CRM based on:
+
+- Google Sheets
+- Google Apps Script
+- optional Google Forms for later internal/client workflows
+
+The public website must submit leads through a secure Next.js server Route Handler.
+
+Required architecture:
+
+Visitor
+→ Website form
+→ POST /api/leads
+→ server-side validation
+→ server-to-server request
+→ Google Apps Script Web App
+→ Google Sheets CRM
+
+Do NOT expose Google Apps Script secrets in browser code.
+
+Do NOT allow public browser code to write directly to Google Sheets.
+
+Do NOT use client-side fetch directly to the Apps Script Web App.
+
+Create server-side environment variables:
+
+GOOGLE_CRM_WEBAPP_URL
+GOOGLE_CRM_SHARED_SECRET
+
+Optional:
+
+LEGACYHUB_LEADS_EMAIL
+NEXT_PUBLIC_BUSINESS_WHATSAPP
+NEXT_PUBLIC_GA_ID
+NEXT_PUBLIC_META_PIXEL_ID
+
+All secrets must remain server-side.
+
+==================================================
+GOOGLE SHEETS CRM STRUCTURE
+==================================================
+
+Design the CRM around these Google Sheet tabs:
+
+1. Leads
+2. Follow_Ups
+3. Proposals
+4. Projects
+5. Business_Profile
+6. System_Config
+7. Activity_Log
+
+Phase 1 must primarily implement and document the Leads workflow.
+
+Do not overbuild proposals/projects automation yet.
+
+==================================================
+LEADS SHEET
+==================================================
+
+Recommended columns:
+
+Lead_ID
+Created_At
+Name
+Email
+Phone
+Country
+Legacy_Subject_Type
+Subject_Name
+Living_Status
+Materials_Available
+Photo_Count_Range
+Service_Interest
+Preferred_Contact_Method
+Message
+
+Source
+Source_Page
+Landing_Page
+Referrer
+UTM_Source
+UTM_Medium
+UTM_Campaign
+UTM_Content
+UTM_Term
+
+Status
+Lead_Score
+Priority
+Assigned_To
+Next_Follow_Up
+Last_Contacted
+Admin_Notes
+
+Proposal_Status
+Quoted_Amount
+Deposit_Status
+Project_Status
+
+Updated_At
+
+Use consistent machine-safe header names.
+
+Do not rename fields casually after integration.
+
+==================================================
+LEAD ID
+==================================================
+
+Prefer generating the Lead ID centrally in Google Apps Script.
+
+Format:
+
+LHD-0001
+LHD-0002
+LHD-0003
+
+Do not generate IDs by simply counting sheet rows because deleted rows/concurrent requests can cause duplicates.
+
+Use a safe Apps Script locking/counter strategy.
+
+The website may send no lead_id.
+
+Apps Script returns the generated Lead ID.
+
+==================================================
+LEAD STATUS PIPELINE
+==================================================
+
+Use:
+
+NEW
+CONTACTED
+QUALIFIED
+CONSULTATION_BOOKED
+PROPOSAL_SENT
+WON
+LOST
+ARCHIVED
+
+Keep sales pipeline values separate from project delivery status.
+
+Project status may later include:
+
+NOT_STARTED
+ONBOARDING
+CONTENT_COLLECTION
+IN_PRODUCTION
+CLIENT_REVIEW
+LIVE
+COMPLETED
+
+Do not implement a full project-management system in Phase 1.
+
+==================================================
+LEAD SCORE
+==================================================
+
+Prepare the CRM so lead scoring can later use factors such as:
+
+- service interest
+- amount of material available
+- project urgency
+- valid phone/WhatsApp
+- country
+- project type
+- photo volume
+- consultation intent
+
+For Phase 1, use either:
+
+Hot
+Warm
+Cold
+
+or a simple numeric score.
+
+Do not implement overly complicated scoring logic unless clearly justified.
+
+==================================================
+GOOGLE APPS SCRIPT API
+==================================================
+
+The Apps Script Web App should accept structured JSON only.
+
+Suggested request:
+
+{
+  "secret": "...",
+  "action": "createLead",
+  "data": {
+    "name": "...",
+    "email": "...",
+    "phone": "...",
+    "country": "...",
+    "legacySubjectType": "...",
+    "subjectName": "...",
+    "livingStatus": "...",
+    "materialsAvailable": [],
+    "photoCountRange": "...",
+    "serviceInterest": "...",
+    "preferredContactMethod": "...",
+    "message": "...",
+    "sourcePage": "...",
+    "landingPage": "...",
+    "referrer": "...",
+    "utmSource": "...",
+    "utmMedium": "...",
+    "utmCampaign": "...",
+    "utmContent": "...",
+    "utmTerm": "..."
+  }
+}
+
+Apps Script response:
+
+{
+  "ok": true,
+  "leadId": "LHD-0001"
+}
+
+Failure response:
+
+{
+  "ok": false,
+  "error": "internal_error"
+}
+
+The website must never expose raw Apps Script errors, Sheet IDs, implementation details or secrets to visitors.
+
+==================================================
+POST /api/leads
+==================================================
+
+Create:
+
+POST /api/leads
+
+Responsibilities:
+
+- parse request
+- Zod validation
+- normalize input
+- validate consent
+- honeypot protection
+- field length limits
+- rate-limit protection if feasible
+- capture attribution
+- send server-to-server request to Apps Script
+- handle timeout
+- handle malformed CRM response
+- log only minimal operational metadata
+- return safe JSON
+- use Cache-Control: no-store
+
+Do not log full message content unnecessarily.
+
+Do not expose CRM secrets.
+
+==================================================
+BOOK CONSULTATION FORM
+==================================================
+
+Fields:
+
+Your name *
+
+Email *
+
+Phone / WhatsApp
+
+Country
+
+Whose legacy would you like to preserve?
+
+Options:
+- Parent
+- Grandparent
+- Family
+- Traditional/community leader
+- Veteran/professional
+- Business founder
+- Organisation
+- Other
+
+Name of person/family/organisation
+
+Is the person:
+
+- Living
+- Late
+- Not applicable
+
+What material do you currently have?
+
+- Photographs
+- Documents
+- Videos
+- Audio recordings
+- Written biography
+- Family stories
+- Other
+
+Approximate photographs:
+
+- Under 50
+- 50–200
+- 200–500
+- More than 500
+- Not sure
+
+Which service interests you?
+
+- Legacy Starter
+- Family Heritage Archive
+- Complete Digital Legacy Archive
+- Documentary & Heritage Project
+- Not sure yet
+
+Preferred contact:
+
+- WhatsApp
+- Email
+- Phone
+
+Tell us about the legacy
+
+Consent:
+
+I agree to be contacted about my legacy archive enquiry and understand that submitting this form does not create a contract or obligation.
+
+Button:
+
+Book My Legacy Consultation
+
+Success:
+
+Thank you. Your legacy consultation request has been received. We will contact you using your preferred contact method.
+
+If Apps Script provides the Lead ID, optionally show:
+
+Reference: LHD-XXXX
+
+Do not expose internal IDs other than the public-facing lead reference.
+
+==================================================
+CONTACT FORM
+==================================================
+
+The general Contact page should also submit through the same secure website API architecture.
+
+Either:
+
+POST /api/contact
+
+or reuse a controlled lead/contact endpoint with a clear action/type.
+
+Do not create disconnected data silos.
+
+General contact submissions should also reach the Google CRM or an appropriate Google Sheet workflow.
+
+Add an enquiry/category value such as:
+
+General enquiry
+Legacy project
+Partnership
+Media/documentary
+Technical
+Other
+
+==================================================
+FACEBOOK / INSTAGRAM ADS ATTRIBUTION
+==================================================
+
+The website will be used for Meta/Facebook advertising.
+
+Capture:
+
+utm_source
+utm_medium
+utm_campaign
+utm_content
+utm_term
+
+Also capture:
+
+source_page
+landing_page
+referrer
+
+For example:
+
+Lead_ID:
+LHD-0042
+
+UTM_Source:
+facebook
+
+UTM_Medium:
+paid_social
+
+UTM_Campaign:
+diaspora_family_uk
+
+UTM_Content:
+video_ad_02
+
+Landing_Page:
+/landing/diaspora-family-archive
+
+Persist attribution across internal navigation when practical.
+
+Do not overwrite original campaign attribution unnecessarily.
+
+==================================================
+ANALYTICS EVENTS
+==================================================
+
+Prepare:
+
+page_view
+lead_form_started
+lead_form_submitted
+consultation_cta_click
+whatsapp_click
+case_study_click
+
+Configuration placeholders:
+
+NEXT_PUBLIC_GA_ID
+NEXT_PUBLIC_META_PIXEL_ID
+
+Do not hard-code IDs.
+
+Do not send analytics data when configuration is missing.
+
+Respect cookie/privacy requirements.
+
+==================================================
+CAMPAIGN LANDING PAGES
+==================================================
+
+Create:
+
+/landing/family-legacy
+
+Audience:
+Families preserving parents and grandparents.
+
+/landing/diaspora-family-archive
+
+Audience:
+Africans in the UK, USA, Canada, Europe and diaspora communities who want to preserve family history.
+
+/landing/memorial-archive
+
+Audience:
+Families preserving the memory and legacy of someone who has died.
+
+Tone must remain dignified and non-exploitative.
+
+/landing/leaders-and-veterans
+
+Audience:
+Traditional leaders, professionals, veterans, public servants and their families.
+
+/landing/organisations
+
+Audience:
+Associations, churches, mosques, businesses, institutions, communities and organisations.
+
+Every landing page should contain:
+
+- audience-specific headline
+- clear problem
+- benefit/outcome
+- archive capabilities
+- Baba Muyi flagship proof
+- how it works
+- FAQ
+- consultation form
+- WhatsApp CTA when configured
+- strong conversion CTA
+
+Avoid main-site navigation distractions where a focused campaign experience is better.
+
+==================================================
+WHATSAPP
+==================================================
+
+Support:
+
+NEXT_PUBLIC_BUSINESS_WHATSAPP
+
+Do not invent a number.
+
+If not configured, hide the WhatsApp CTA.
+
+Suggested pre-filled message:
+
+Hello, I saw LegacyHub Digital Heritage and I am interested in creating a digital legacy archive.
+
+For audience-specific landing pages, optionally vary the pre-filled message.
+
+Track:
+whatsapp_click
+
+when analytics is configured.
+
+==================================================
+EMAIL AUTOMATION
+==================================================
+
+The Apps Script CRM should be capable of:
+
+1. sending an acknowledgement email to the lead,
+2. sending an internal new-lead notification,
+3. recording the event in Activity_Log.
+
+Do not build complex email marketing automation yet.
+
+Suggested lead acknowledgement:
+
+Subject:
+We received your LegacyHub Digital Heritage enquiry
+
+Internal notification:
+
+Subject:
+New LegacyHub Digital lead: [Service Interest]
+
+Include:
+
+- Lead ID
+- name
+- email
+- phone
+- country
+- service interest
+- preferred contact method
+- source
+- campaign
+- link or instructions to open the CRM
+
+Use configured business identity.
+
+Do not invent business email addresses.
+
+==================================================
+FOLLOW-UP WORKFLOW
+==================================================
+
+Design the Google CRM so Apps Script can later support:
+
+NEW
+→ CONTACTED
+→ QUALIFIED
+→ CONSULTATION_BOOKED
+→ PROPOSAL_SENT
+→ WON
+
+When a new lead arrives:
+
+- generate Lead ID
+- save lead
+- calculate initial lead score
+- status = NEW
+- create follow-up date if configured
+- send acknowledgement
+- notify business
+- log activity
+
+Do not build excessive automation in Phase 1.
+
+==================================================
+GOOGLE FORMS
+==================================================
+
+Do not use a generic embedded Google Form as the main public lead form.
+
+The marketing website must use native LegacyHub Digital branded forms.
+
+Google Forms may later be used for:
+
+- client onboarding
+- family history questionnaires
+- detailed biography collection
+- archive content collection
+- internal staff workflows
+- project intake
+- family contributor questionnaires
+
+==================================================
+ADMIN / CRM STRATEGY
+==================================================
+
+Do NOT build a duplicate Supabase admin CRM in Phase 1.
+
+Google Sheets is the operational CRM.
+
+The website does not need:
+
+/admin/leads
+
+unless later explicitly required.
+
+CRM management occurs in Google Workspace.
+
+Future phases may create a bespoke dashboard that reads from the Google CRM, but do not duplicate data now.
+
+==================================================
+SEO
+==================================================
+
+Target natural searches including:
+
+digital legacy archive
+family legacy website
+African family history
+Nigerian family archive
+memorial website
+family heritage website
+digital family archive
+preserve family photographs
+legacy website
+oral history archive
+
+Also create geographic/service relevance naturally for:
+
+UK
+Nigeria
+African diaspora
+USA
+Canada
+Europe
+
+Do not keyword-stuff.
+
+Create:
+
+- sitemap
+- robots
+- canonical URLs
+- Open Graph
+- descriptive metadata
+- structured data where appropriate
+
+==================================================
+PRIVACY / COMPLIANCE
+==================================================
+
+Create:
+
+/privacy
+/terms
+
+Explain:
+
+- lead information collected
+- Google Workspace CRM processing
+- email follow-up
+- WhatsApp communication when selected
+- analytics
+- advertising attribution
+- cookies
+- retention
+- contact rights
+
+Do not publicly expose the spreadsheet.
+
+Do not place personal lead information in URLs.
+
+Implement consent-ready analytics architecture where required.
+
+==================================================
+SECURITY
+==================================================
+
+Requirements:
+
+- no CRM secrets in browser
+- no public Google Sheet write endpoint exposed unnecessarily
+- server-side validation
+- honeypot
+- rate limiting where practical
+- safe timeouts
+- generic visitor errors
+- no spreadsheet IDs exposed unless technically harmless and unavoidable
+- no Apps Script source secrets exposed
+- no unsafe HTML rendering
+- HTTPS only in production
+- no sensitive data logging
+- environment variables validated
+
+==================================================
+ACCESSIBILITY
+==================================================
+
+Use:
+
+- semantic HTML
+- keyboard-accessible navigation
+- visible focus
+- sufficient contrast
+- accessible forms
+- descriptive errors
+- aria-live status feedback
+- responsive layouts
+- reduced-motion support where appropriate
+
+==================================================
+TESTING
+==================================================
+
+Test:
+
+- public pages render
+- consultation form fields
+- Zod validation
+- missing consent
+- invalid email
+- honeypot
+- /api/leads
+- successful CRM response
+- failed CRM response
+- CRM timeout
+- malformed CRM response
+- no secret exposure
+- UTM capture
+- attribution persistence
+- WhatsApp configuration
+- landing pages
+- case study
+- privacy
+- terms
+
+Mock the Apps Script endpoint for automated tests.
+
+Do not make automated tests depend on the live Google Sheet.
+
+Run:
+
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm build
+git diff --check
+
+==================================================
+DOCUMENTATION
+==================================================
+
+Create documentation for:
+
+- overall architecture
+- Google Workspace CRM
+- Google Sheet tabs
+- required columns
+- Apps Script request contract
+- Apps Script response contract
+- Lead ID generation
+- lead status pipeline
+- UTM attribution
+- website environment variables
+- Apps Script deployment
+- testing
+- Meta Pixel configuration
+- GA configuration
+- WhatsApp configuration
+- production deployment
+
+==================================================
+DEPLOYMENT
+==================================================
+
+This is a separate commercial project.
+
+Do not deploy into the Baba Muyi application.
+
+Target:
+
+legacyhubdigital.com
+
+Document:
+
+- GitHub repository
+- Hostinger application
+- DNS
+- SSL
+- Google Apps Script Web App deployment
+- Google Sheet CRM configuration
+- environment variables
+- business email
+- Meta Pixel
+- Google Analytics
+- WhatsApp
+- production test checklist
+
+==================================================
+GIT
+==================================================
+
+Create a clean repository/project.
+
+Suggested repository:
+
+MajekAz/legacyhub-digital
+
+Suggested branch:
+
+feature/foundation
+
+Suggested initial commit:
+
+feat: establish LegacyHub Digital Heritage platform
+
+Do not modify:
+
+MajekAz/baba-muyi-legacy
+
+Do not push, merge or deploy until implementation and validation are reported.
+
+==================================================
+BEFORE CODING
+==================================================
+
+Before implementation, report:
+
+1. proposed Next.js architecture
+2. pages/routes
+3. component structure
+4. Google CRM integration architecture
+5. Apps Script API contract
+6. Google Sheet structure
+7. UTM attribution strategy
+8. landing-page strategy
+9. environment variables
+10. security model
+11. testing strategy
+12. files that will be created
+
+Do not begin major implementation until this architecture has been clearly summarized.
+
+==================================================
+FINAL REPORT
+==================================================
+
+Report:
+
+1. architecture
+2. page structure
+3. files created
+4. Google Sheets CRM schema
+5. Apps Script integration
+6. lead flow
+7. consultation form
+8. campaign landing pages
+9. UTM attribution
+10. Facebook/Meta Ads readiness
+11. WhatsApp configuration
+12. email notification architecture
+13. SEO
+14. privacy/compliance
+15. tests/results
+16. environment variables
+17. Google Workspace manual setup steps
+18. deployment checklist
+19. suggested PR title/body
+20. recommended Phase 2
