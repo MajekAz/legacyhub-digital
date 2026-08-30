@@ -1,7 +1,7 @@
 import { beforeEach, afterEach, describe, it, expect, vi } from 'vitest';
 import { leadSchema, CONSENT_VERSION } from '@/lib/lead-schema';
 import { createCrmLead } from '@/lib/crm-client.server';
-import { createHmac } from 'node:crypto';
+
 const input = {
   requestId: '550e8400-e29b-41d4-a716-446655440000',
   type: 'consultation',
@@ -66,7 +66,7 @@ describe('lead validation', () => {
   });
 });
 describe('CRM client', () => {
-  it('sends a signed server request and returns only the reference', async () => {
+  it('sends an authenticated server request and returns only the reference', async () => {
     const fetcher = vi
       .fn()
       .mockResolvedValue(new Response(JSON.stringify({ ok: true, leadId: 'LHD-0001' })));
@@ -74,12 +74,9 @@ describe('CRM client', () => {
     expect(await createCrmLead(crmData(), input.requestId)).toBe('LHD-0001');
     const body = JSON.parse(fetcher.mock.calls[0][1].body);
     expect(body.action).toBe('createLead');
-    expect(body.signature).toBe(
-      createHmac('sha256', secret)
-        .update(`${body.timestamp}.${body.requestId}.${body.payload}`)
-        .digest('hex'),
-    );
-    expect(JSON.stringify(body)).not.toContain(secret);
+    expect(body.secret).toBe(secret);
+    expect(body.data).toEqual(crmData());
+    expect(body.requestId).toBe(input.requestId);
   });
   it.each([
     '<html>login</html>',
@@ -121,4 +118,51 @@ describe('CRM client', () => {
     vi.stubEnv('GOOGLE_CRM_SHARED_SECRET', '');
     await expect(createCrmLead(crmData(), input.requestId)).rejects.toThrow('crm_unconfigured');
   });
+});
+it('follows the Google result redirect without forwarding credentials', async () => {
+  const fetcher = vi
+    .fn()
+    .mockResolvedValueOnce(
+      new Response(null, {
+        status: 302,
+        headers: {
+          location: 'https://script.googleusercontent.com/macros/echo?user_content_key=test',
+        },
+      }),
+    )
+    .mockResolvedValueOnce(new Response(JSON.stringify({ ok: true, leadId: 'LHD-0002' })));
+  vi.stubGlobal('fetch', fetcher);
+  expect(await createCrmLead(crmData(), input.requestId)).toBe('LHD-0002');
+  expect(fetcher.mock.calls[1][1]).toMatchObject({ method: 'GET', redirect: 'error' });
+  expect(fetcher.mock.calls[1][1]).not.toHaveProperty('body');
+  expect(JSON.stringify(fetcher.mock.calls[1])).not.toContain(secret);
+});
+it.each([
+  'https://attacker.test/',
+  'http://script.googleusercontent.com/macros/echo',
+  'https://script.googleusercontent.com:8443/macros/echo',
+])('rejects unsafe redirect %s', async (location) => {
+  const fetcher = vi
+    .fn()
+    .mockResolvedValue(new Response(null, { status: 302, headers: { location } }));
+  vi.stubGlobal('fetch', fetcher);
+  await expect(createCrmLead(crmData(), input.requestId)).rejects.toThrow();
+  expect(fetcher).toHaveBeenCalledTimes(1);
+});
+it.each([301, 307, 308])('never replays the secret POST on HTTP %i', async (status) => {
+  const fetcher = vi
+    .fn()
+    .mockResolvedValue(
+      new Response(null, {
+        status,
+        headers: { location: 'https://script.googleusercontent.com/macros/echo' },
+      }),
+    );
+  vi.stubGlobal('fetch', fetcher);
+  await expect(createCrmLead(crmData(), input.requestId)).rejects.toThrow();
+  expect(fetcher).toHaveBeenCalledTimes(1);
+});
+it('rejects oversized CRM responses', async () => {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('x'.repeat(4097))));
+  await expect(createCrmLead(crmData(), input.requestId)).rejects.toThrow('crm_malformed');
 });

@@ -14,9 +14,13 @@ function doPost(e) {
       return output({ ok: false, error: 'invalid_request' });
     var envelope = JSON.parse(e.postData.contents);
     authenticate(envelope);
-    var data = JSON.parse(envelope.payload);
+    var data = envelope.data;
     validateLead(data);
-    var result = saveLead(data, envelope.requestId, envelope.payload);
+    // The website always supplies requestId. Direct integrations may omit it,
+    // but cannot safely retry without supplying their own stable UUID.
+    var requestId = envelope.requestId || Utilities.getUuid();
+    var payload = JSON.stringify(data, Object.keys(data).sort());
+    var result = saveLead(data, requestId, payload);
     if (result.created) {
       try {
         notifyLead(data, result.leadId);
@@ -52,6 +56,7 @@ function saveLead(data, requestId, payload) {
         var row = sheet.getRange(existing.getRow(), 1, 1, LEAD_HEADERS.length).getValues()[0];
         if (row[LEAD_HEADERS.indexOf('Payload_Hash')] !== hash)
           throw new Error('idempotency_conflict');
+        ensureFollowUp(book, row[0], row[LEAD_HEADERS.indexOf('Next_Follow_Up')]);
         return { leadId: row[0], created: false };
       }
     }
@@ -59,9 +64,19 @@ function saveLead(data, requestId, payload) {
     var counter = Number(props.getProperty('LEAD_COUNTER'));
     if (props.getProperty('LEAD_COUNTER') === null || !Number.isSafeInteger(counter) || counter < 0)
       throw new Error('counter');
+    if (counter >= Number.MAX_SAFE_INTEGER) throw new Error('counter_exhausted');
     counter++;
     props.setProperty('LEAD_COUNTER', String(counter));
     var leadId = 'LHD-' + String(counter).padStart(4, '0');
+    if (
+      sheet.getLastRow() > 1 &&
+      sheet
+        .getRange(2, 1, sheet.getLastRow() - 1, 1)
+        .createTextFinder(leadId)
+        .matchEntireCell(true)
+        .findNext()
+    )
+      throw new Error('counter_collision');
     var now = new Date().toISOString();
     var score = data.type === 'consultation' ? 60 : 30;
     if (data.phone) score += 10;
@@ -84,7 +99,7 @@ function saveLead(data, requestId, payload) {
       record[FIELD_COLUMNS[key]] = Array.isArray(data[key]) ? data[key].join('; ') : data[key];
     });
     var days = Number(props.getProperty('FOLLOW_UP_DAYS'));
-    if (Number.isFinite(days) && days > 0 && days <= 365)
+    if (Number.isInteger(days) && days > 0 && days <= 365)
       record.Next_Follow_Up = new Date(Date.now() + days * 86400000).toISOString();
     sheet.appendRow(
       LEAD_HEADERS.map(function (key) {
@@ -95,8 +110,33 @@ function saveLead(data, requestId, payload) {
     );
     SpreadsheetApp.flush();
     safeActivity(leadId, 'lead_created', 'saved');
+    ensureFollowUp(book, leadId, record.Next_Follow_Up);
     return { leadId: leadId, created: true };
   } finally {
     lock.releaseLock();
+  }
+}
+
+// Called under the lead lock, including on retries, to repair partial follow-up writes.
+function ensureFollowUp(book, leadId, dueAt) {
+  if (!dueAt) return;
+  try {
+    var sheet = book.getSheetByName('Follow_Ups');
+    verifyHeaders(sheet, ['Follow_Up_ID', 'Lead_ID', 'Due_At', 'Owner', 'Status', 'Notes']);
+    var followUpId = 'FU-' + leadId;
+    if (
+      sheet.getLastRow() > 1 &&
+      sheet
+        .getRange(2, 1, sheet.getLastRow() - 1, 1)
+        .createTextFinder(followUpId)
+        .matchEntireCell(true)
+        .findNext()
+    )
+      return;
+    sheet.appendRow([followUpId, leadId, dueAt, '', 'PENDING', 'Initial enquiry follow-up']);
+    SpreadsheetApp.flush();
+    safeActivity(leadId, 'follow_up', 'created');
+  } catch (err) {
+    safeActivity(leadId, 'follow_up', 'failed');
   }
 }

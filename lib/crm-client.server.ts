@@ -1,5 +1,4 @@
 import 'server-only';
-import { createHmac } from 'node:crypto';
 import { z } from 'zod';
 import type { CrmData } from './lead-schema';
 const responseSchema = z.object({ ok: z.literal(true), leadId: z.string().regex(/^LHD-\d{4,}$/) });
@@ -13,35 +12,67 @@ export async function createCrmLead(data: CrmData, requestId: string): Promise<s
     endpoint.hostname !== 'script.google.com' ||
     !/^\/macros\/s\/[\w-]+\/exec$/.test(endpoint.pathname) ||
     endpoint.search ||
-    endpoint.hash
+    endpoint.hash ||
+    endpoint.username ||
+    endpoint.password ||
+    endpoint.port
   )
     throw new Error('crm_configuration');
-  const payload = JSON.stringify(data);
-  const timestamp = Date.now();
-  const signature = createHmac('sha256', secret)
-    .update(`${timestamp}.${requestId}.${payload}`)
-    .digest('hex');
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 12000);
   try {
-    const res = await fetch(url, {
+    let res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        version: 1,
-        action: 'createLead',
-        timestamp,
-        requestId,
-        payload,
-        signature,
-      }),
+      body: JSON.stringify({ secret, action: 'createLead', data, requestId }),
       signal: controller.signal,
       cache: 'no-store',
-      redirect: 'follow',
+      // Never automatically replay a credential-bearing POST to a redirect target.
+      redirect: 'manual',
     });
+    if (res.status === 302 || res.status === 303) {
+      const location = res.headers.get('location');
+      if (!location) throw new Error('crm_redirect');
+      const target = new URL(location, url);
+      if (
+        target.protocol !== 'https:' ||
+        target.hostname !== 'script.googleusercontent.com' ||
+        target.username ||
+        target.password ||
+        target.port ||
+        target.pathname !== '/macros/echo'
+      )
+        throw new Error('crm_redirect');
+      await res.body?.cancel();
+      // ContentService returns the result from Google on a one-time GET URL.
+      res = await fetch(target, {
+        method: 'GET',
+        signal: controller.signal,
+        cache: 'no-store',
+        redirect: 'error',
+      });
+    }
     if (!res.ok) throw new Error('crm_failed');
-    const text = await res.text();
-    if (text.length > 4096) throw new Error('crm_malformed');
+    const reader = res.body?.getReader();
+    if (!reader) throw new Error('crm_malformed');
+    const decoder = new TextDecoder();
+    let text = '';
+    let bytes = 0;
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        bytes += value.byteLength;
+        if (bytes > 4096) {
+          await reader.cancel();
+          throw new Error('crm_malformed');
+        }
+        text += decoder.decode(value, { stream: true });
+      }
+      text += decoder.decode();
+    } finally {
+      reader.releaseLock();
+    }
     const parsed = responseSchema.safeParse(JSON.parse(text));
     if (!parsed.success) throw new Error('crm_malformed');
     return parsed.data.leadId;
