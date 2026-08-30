@@ -1,6 +1,7 @@
 import { PageHero, ConsultationCTA } from '@/components/sections';
 import { pageMetadata } from '@/lib/metadata';
 import { serviceContent } from '@/content/site';
+import { pageHeroes } from '@/content/heroes';
 export const metadata = pageMetadata(
   'Our services',
   'Explore digital legacy archives, biography development, archive organisation and bespoke heritage projects.',
@@ -9,13 +10,8 @@ export const metadata = pageMetadata(
 export default function Page() {
   return (
     <main id="main">
-      <PageHero eyebrow="Our services" title="A considered service, built around your story.">
-        <p>
-          Explore digital legacy archives, biography development, archive organisation and bespoke
-          heritage projects.
-        </p>
-      </PageHero>
-      <section className="section wrap">
+      <PageHero {...pageHeroes['/services']} />
+      <section className="section wrap" id="services">
         <div className="grid">
           {serviceContent.map(([title, copy]) => (
             <article className="card" key={title}>

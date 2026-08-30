@@ -5,6 +5,7 @@ import { PageHero, Capabilities, Process, Proof, FAQ } from '@/components/sectio
 import { LeadForm } from '@/components/lead-form';
 import { WhatsApp } from '@/components/whatsapp';
 import { pageMetadata } from '@/lib/metadata';
+import { pageHeroes, type HeroRoute } from '@/content/heroes';
 export const dynamicParams = false;
 export function generateStaticParams() {
   return Object.keys(campaigns).map((slug) => ({ slug }));
@@ -18,6 +19,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
   const c = campaigns[slug as CampaignSlug];
   if (!c) notFound();
+  const hero = pageHeroes[`/landing/${slug}` as HeroRoute];
   return (
     <main id="main" data-landing>
       <div className="wrap focus-header">
@@ -26,16 +28,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </Link>
         <span className="small">Your story, thoughtfully preserved.</span>
       </div>
-      <PageHero eyebrow={c.eyebrow} title={c.title}>
-        <p>{c.problem}</p>
-        <p>{c.benefit}</p>
-        <div className="actions">
-          <a className="button" href="#consultation" data-event="consultation_cta_click">
-            Book a Legacy Consultation ↗
-          </a>
-          <WhatsApp />
-        </div>
-      </PageHero>
+      <PageHero {...hero} />
       <Capabilities />
       <Proof />
       <Process />

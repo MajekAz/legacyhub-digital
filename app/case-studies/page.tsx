@@ -1,5 +1,6 @@
 import { PageHero, Proof, ConsultationCTA } from '@/components/sections';
 import { pageMetadata } from '@/lib/metadata';
+import { pageHeroes } from '@/content/heroes';
 export const metadata = pageMetadata(
   'Our work',
   'Our flagship example offers a way to explore the possibilities before discussing your own project.',
@@ -8,12 +9,7 @@ export const metadata = pageMetadata(
 export default function Page() {
   return (
     <main id="main">
-      <PageHero eyebrow="Our work" title="See what a digital legacy can become.">
-        <p>
-          Our flagship example offers a way to explore the possibilities before discussing your own
-          project.
-        </p>
-      </PageHero>
+      <PageHero {...pageHeroes['/case-studies']} />
       <Proof />
       <ConsultationCTA />
     </main>

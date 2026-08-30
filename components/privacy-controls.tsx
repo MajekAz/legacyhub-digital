@@ -69,7 +69,7 @@ export function PrivacyControls() {
   }
   return (
     <>
-      <div className="wrap" style={{ paddingBottom: 20 }}>
+      <div className="privacy-controls-link">
         <button className="quiet-button" onClick={() => setOpen(true)}>
           Cookie preferences
         </button>

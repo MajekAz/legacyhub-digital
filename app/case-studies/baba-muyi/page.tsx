@@ -1,5 +1,6 @@
 import { PageHero, Capabilities, ConsultationCTA } from '@/components/sections';
 import { pageMetadata } from '@/lib/metadata';
+import { pageHeroes } from '@/content/heroes';
 export const metadata = pageMetadata(
   'Baba Muyi flagship case study',
   'Explore the Tioluwalase Majekodunmi Family Archive as an independent flagship example of digital family heritage.',
@@ -8,12 +9,7 @@ export const metadata = pageMetadata(
 export default function Page() {
   return (
     <main id="main">
-      <PageHero eyebrow="Flagship case study" title="The Tioluwalase Majekodunmi Family Archive">
-        <p>
-          A family story preserved with context, care and a connection to the generations that
-          follow.
-        </p>
-      </PageHero>
+      <PageHero {...pageHeroes['/case-studies/baba-muyi']} />
       <section className="section wrap split">
         <div>
           <p className="eyebrow">Baba Muyi</p>
@@ -47,6 +43,54 @@ export default function Page() {
             No private family information, media, administration or authentication data is
             reproduced on this commercial website.
           </p>
+        </div>
+      </section>
+      <section className="section case-documentary">
+        <div className="wrap">
+          <div className="section-intro">
+            <div>
+              <p className="eyebrow">The preservation approach</p>
+              <h2>One life, organised so its meaning remains visible.</h2>
+            </div>
+            <p>
+              The archive demonstrates how family knowledge and documentary material can be given a
+              clear structure without losing the warmth and character of the person at its centre.
+            </p>
+          </div>
+          <div className="case-documentary-grid">
+            <article>
+              <span>01</span>
+              <h3>The story</h3>
+              <p>
+                A long-form biography gives the life a narrative thread, connecting family,
+                experience, values and contribution.
+              </p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>The material</h3>
+              <p>
+                Photographs, documents, recollections, tributes and documentary material add
+                evidence, texture and different family voices.
+              </p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>The structure</h3>
+              <p>
+                Biography, timeline, memories and lessons are organised as connected parts of one
+                archive rather than isolated files.
+              </p>
+            </article>
+            <article>
+              <span>04</span>
+              <h3>The purpose</h3>
+              <p>
+                The finished archive gives present and future generations a considered point of
+                reference for the story and its context.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
       <Capabilities />

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import './globals.css';
 import { PrivacyControls } from '@/components/privacy-controls';
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://legacyhubdigital.com'),
   title: {
@@ -33,9 +34,10 @@ export const metadata: Metadata = {
     description: 'Preserve a Life. Protect a Story. Connect Generations.',
   },
 };
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-GB">
+    <html lang="en-GB" data-scroll-behavior="smooth">
       <body>
         <a className="skip-link" href="#main">
           Skip to content
@@ -44,46 +46,69 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <div className="wrap nav">
             <Link className="brand" href="/" aria-label="LegacyHub Digital Heritage home">
               <span className="brand-mark" aria-hidden="true">
-                L<span>H</span>
+                LH
               </span>
               <span>
-                LegacyHub<small>DIGITAL HERITAGE</small>
+                LegacyHub<small>Digital Heritage</small>
               </span>
             </Link>
-            <nav aria-label="Main navigation">
-              <Link href="/services">Our services</Link>
-              <Link href="/how-it-works">Our approach</Link>
-              <Link href="/case-studies">Our work</Link>
+            <nav className="desktop-nav" aria-label="Main navigation">
+              <Link href="/services">Services</Link>
+              <Link href="/how-it-works">How It Works</Link>
+              <Link href="/case-studies">Our Work</Link>
               <Link href="/about">About</Link>
+              <Link href="/contact">Contact</Link>
               <Link className="button small-button" href="/book-consultation">
-                Let’s preserve your story ↗
+                Start Your Legacy Project
               </Link>
             </nav>
+            <details className="mobile-nav">
+              <summary>
+                Menu <span aria-hidden="true">+</span>
+              </summary>
+              <nav aria-label="Mobile navigation">
+                <Link href="/services">Services</Link>
+                <Link href="/how-it-works">How It Works</Link>
+                <Link href="/case-studies">Our Work</Link>
+                <Link href="/about">About</Link>
+                <Link href="/contact">Contact</Link>
+                <Link className="button" href="/book-consultation">
+                  Start Your Legacy Project
+                </Link>
+              </nav>
+            </details>
           </div>
         </header>
         {children}
         <footer>
-          <div className="wrap footer-grid">
+          <div className="wrap footer-top">
             <div>
               <Link className="footer-brand" href="/">
                 LegacyHub Digital Heritage
               </Link>
               <p>
-                Digital Legacy Archives for Families,
-                <br />
-                Leaders and Organisations.
+                We preserve biographies, photographs, memories and records in thoughtful digital
+                archives for families, leaders and organisations.
               </p>
             </div>
             <div>
-              <Link href="/who-we-serve">Who we serve</Link>
-              <Link href="/packages">Packages</Link>
-              <Link href="/contact">Contact</Link>
+              <strong>Explore</strong>
+              <Link href="/services">Services</Link>
+              <Link href="/how-it-works">How It Works</Link>
+              <Link href="/case-studies">Our Work</Link>
+              <Link href="/about">About</Link>
             </div>
             <div>
+              <strong>Begin</strong>
+              <Link href="/book-consultation">Book a Consultation</Link>
+              <Link href="/contact">Contact</Link>
               <Link href="/privacy">Privacy</Link>
               <Link href="/terms">Terms</Link>
-              <p>© {new Date().getFullYear()} LegacyHub Digital Heritage</p>
             </div>
+          </div>
+          <div className="wrap footer-bottom">
+            <span>© {new Date().getFullYear()} LegacyHub Digital Heritage</span>
+            <span>Digital Legacy Archives for Families, Leaders and Organisations.</span>
           </div>
         </footer>
         <PrivacyControls />

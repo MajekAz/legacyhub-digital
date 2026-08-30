@@ -1,5 +1,6 @@
 import { PageHero, ConsultationCTA } from '@/components/sections';
 import { pageMetadata } from '@/lib/metadata';
+import { pageHeroes } from '@/content/heroes';
 export const metadata = pageMetadata(
   'About LegacyHub Digital Heritage',
   'We help families, leaders and organisations bring meaningful material together into professionally designed digital legacy archives.',
@@ -8,15 +9,7 @@ export const metadata = pageMetadata(
 export default function Page() {
   return (
     <main id="main">
-      <PageHero
-        eyebrow="About LegacyHub Digital Heritage"
-        title="Care for the story. Respect for the people."
-      >
-        <p>
-          We help families, leaders and organisations bring meaningful material together into
-          professionally designed digital legacy archives.
-        </p>
-      </PageHero>
+      <PageHero {...pageHeroes['/about']} />
       <section className="section wrap prose">
         <h2>A service with a human purpose</h2>
         <p>

@@ -22,7 +22,7 @@ With the local server running, run `pnpm test:routes`.
 - `app/`: 17 public pages (12 core pages + five campaigns), metadata and secure lead endpoint.
 - `components/`: shared editorial sections, native enquiry forms, consent and optional WhatsApp.
 - `content/site.ts`: service, audience, package and campaign copy.
-- `lib/`: Zod schema, signed CRM client, attribution, analytics and local abuse checks.
+- `lib/`: Zod schema, authenticated CRM client, attribution, analytics and local abuse checks.
 - `apps-script/`: private Google Workspace CRM workflow; deploy separately after setup.
 - `tests/`: isolated contract, API, Apps Script harness, content, consent and attribution tests.
 - `docs/`: architecture, CRM setup, schema, deployment and handover.
@@ -37,6 +37,6 @@ See [Architecture](docs/architecture.md), [CRM setup](docs/google-workspace-crm.
 
 ## Git
 
-Local branch: `feature/foundation`.
-Suggested remote repository: `MajekAz/legacyhub-digital` (not created or verified).
+Current CRM branch: `feature/google-workspace-crm`.
+Configured remote: `https://github.com/MajekAz/legacyhub-digital.git` (no push made during this CRM change).
 No push, merge, deployment or DNS change is authorised by this implementation.

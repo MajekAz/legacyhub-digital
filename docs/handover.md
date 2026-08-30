@@ -1,3 +1,5 @@
+> Historical foundation report. The shared-secret CRM contract and live setup procedure now supersede the HMAC prototype described below; see google-workspace-crm.md.
+
 # Phase 1 handover — 28 August 2026
 
 ## 1. Architecture
