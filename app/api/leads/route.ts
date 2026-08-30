@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       : ['http://127.0.0.1:3100', 'http://localhost:3100'];
   if (!origin || !allowed.includes(origin))
     return json({ ok: false, error: 'Request could not be accepted.' }, 403);
-  if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json'))
+  if (!/^application\/json(?:\s*;|$)/i.test(request.headers.get('content-type') || ''))
     return json({ ok: false, error: 'Please submit the website form.' }, 415);
   if (!allowRequest('global', 120))
     return json({ ok: false, error: 'Please wait a minute before trying again.' }, 429);

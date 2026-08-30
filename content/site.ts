@@ -94,20 +94,28 @@ export const packages = [
 ];
 export const processSteps = [
   [
-    'Start with a conversation',
-    'Tell us whose story you want to preserve, what you have and what matters most.',
+    'Consultation',
+    'We listen to the story, understand your priorities and discuss what a meaningful archive could include.',
   ],
   [
-    'Shape the collection',
-    'We agree the scope, organise the material and identify permissions, gaps and priorities.',
+    'Collection',
+    'Photographs, documents, recordings and written memories are gathered through an agreed, secure process.',
   ],
   [
-    'Create and review',
-    'Your archive takes shape. You review the narrative, design and approved content before launch.',
+    'Curation',
+    'We organise the material, identify gaps and shape the narrative with permissions and context in mind.',
   ],
   [
-    'Share and care',
-    'Launch on an agreed domain, with a clear plan for access, hosting, backups and future care.',
+    'Design',
+    'The archive is designed as a coherent, accessible experience around the story and approved material.',
+  ],
+  [
+    'Review',
+    'You remain involved throughout. Nothing is published until the agreed review and approval process is complete.',
+  ],
+  [
+    'Delivery & care',
+    'We launch on the agreed domain and document hosting, backups, access and future care.',
   ],
 ];
 export const faq = [
@@ -143,6 +151,8 @@ export const archiveCapabilities = [
   'Timelines & meaningful places',
   'Audio, video & oral history',
   'Family memories & tributes',
+  'Family trees & relationships',
+  'Founder & organisation history',
 ];
 export const campaigns = {
   'family-legacy': {

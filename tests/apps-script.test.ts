@@ -1,10 +1,17 @@
 import { readFileSync } from 'node:fs';
 import { createContext, runInContext } from 'node:vm';
-import { createHash, createHmac } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { beforeEach, it, expect, vi } from 'vitest';
 import { leadSchema, CONSENT_VERSION } from '@/lib/lead-schema';
 class Sheet {
   rows: unknown[][] = [];
+  columns = 26;
+  getMaxColumns() {
+    return this.columns;
+  }
+  insertColumnsAfter(_after: number, count: number) {
+    this.columns += count;
+  }
   getLastRow() {
     return this.rows.length;
   }
@@ -16,6 +23,7 @@ class Sheet {
     this.rows.push(row);
   }
   getRange(row: number, col: number, count = 1, width = 1) {
+    if (col + width - 1 > this.columns) throw Error('column capacity');
     return {
       getRow: () => row,
       getValues: () =>
@@ -92,8 +100,7 @@ beforeEach(() => {
       DigestAlgorithm: { SHA_256: 'sha256' },
       computeDigest: (_algo: string, value: string) =>
         Array.from(createHash('sha256').update(value).digest()),
-      computeHmacSha256Signature: (value: string, key: string) =>
-        Array.from(createHmac('sha256', key).update(value).digest()),
+      getUuid: randomUUID,
     },
     MailApp: { sendEmail: mail },
     ContentService: {
@@ -122,17 +129,12 @@ function envelope(
   });
   void website;
   void _id;
-  const payload = JSON.stringify({
-    ...data,
-    consentVersion: CONSENT_VERSION,
-    source: 'Website consultation',
-    ...patch,
-  });
-  const timestamp = Date.now();
-  const signature = createHmac('sha256', secret)
-    .update(`${timestamp}.${requestId}.${payload}`)
-    .digest('hex');
-  return { version: 1, action: 'createLead', requestId, timestamp, payload, signature };
+  return {
+    secret,
+    action: 'createLead',
+    requestId,
+    data: { ...data, consentVersion: CONSENT_VERSION, source: 'Website consultation', ...patch },
+  };
 }
 const send = (e: ReturnType<typeof envelope>) =>
   JSON.parse(ctx.doPost({ postData: { type: 'application/json', contents: JSON.stringify(e) } }));
@@ -168,13 +170,9 @@ it('never derives IDs from row count', () => {
   sheets.get('Leads')?.rows.pop();
   expect(send(envelope({}, '550e8400-e29b-41d4-a716-446655440001')).leadId).toBe('LHD-0002');
 });
-it('rejects tampering, expired signatures and missing consent without saving', () => {
-  const bad = envelope();
-  bad.signature = '0'.repeat(64);
-  expect(send(bad).ok).toBe(false);
-  const old = envelope();
-  old.timestamp = 0;
-  expect(send(old).ok).toBe(false);
+it('rejects wrong secrets and missing consent without saving', () => {
+  expect(send({ ...envelope(), secret: 'wrong' }).ok).toBe(false);
+  expect(send({ ...envelope(), secret: '' }).ok).toBe(false);
   expect(send(envelope({ consent: false })).ok).toBe(false);
   expect(sheets.get('Leads')?.getLastRow()).toBe(1);
 });
@@ -206,4 +204,57 @@ it('applies simple score, NEW status and configured follow-up date', () => {
   expect(row[ctx.LEAD_HEADERS.indexOf('Status')]).toBe('NEW');
   expect(row[ctx.LEAD_HEADERS.indexOf('Priority')]).toBe('Hot');
   expect(row[ctx.LEAD_HEADERS.indexOf('Next_Follow_Up')]).toBeTruthy();
+});
+it('expands a new Leads sheet to 42 columns', () => {
+  expect(sheets.get('Leads')!.columns).toBe(42);
+});
+it('creates only one follow-up when a lead is retried', () => {
+  props.set('FOLLOW_UP_DAYS', '2');
+  const e = envelope();
+  send(e);
+  send(e);
+  expect(sheets.get('Follow_Ups')!.rows).toHaveLength(2);
+  expect(sheets.get('Follow_Ups')!.rows[1][0]).toBe('FU-LHD-0001');
+});
+it.each(['', '0', '-1', '1.5', '366', 'bad'])('does not schedule invalid days %s', (days) => {
+  props.set('FOLLOW_UP_DAYS', days);
+  expect(send(envelope()).ok).toBe(true);
+  expect(sheets.get('Follow_Ups')!.rows).toHaveLength(1);
+});
+it('repairs a failed follow-up on retry without duplicating the lead', () => {
+  props.set('FOLLOW_UP_DAYS', '1');
+  const sheet = sheets.get('Follow_Ups')!;
+  vi.spyOn(sheet, 'appendRow').mockImplementationOnce(() => {
+    throw Error('temporary');
+  });
+  const e = envelope();
+  expect(send(e).ok).toBe(true);
+  expect(sheet.rows).toHaveLength(1);
+  expect(send(e).leadId).toBe('LHD-0001');
+  expect(sheet.rows).toHaveLength(2);
+  expect(sheets.get('Leads')!.rows).toHaveLength(2);
+});
+it('accepts the requested three-field envelope without a request ID', () => {
+  const { requestId, ...e } = envelope();
+  void requestId;
+  const result = JSON.parse(
+    ctx.doPost({ postData: { type: 'application/json', contents: JSON.stringify(e) } }),
+  );
+  expect(result).toEqual({ ok: true, leadId: 'LHD-0001' });
+});
+it('rejects counter collisions without saving a duplicate ID', () => {
+  send(envelope());
+  props.set('LEAD_COUNTER', '0');
+  expect(send(envelope({}, '550e8400-e29b-41d4-a716-446655440001')).ok).toBe(false);
+  expect(sheets.get('Leads')!.rows).toHaveLength(2);
+});
+it('sends configured emails only once per saved request', () => {
+  props.set('EMAIL_ENABLED', 'true');
+  props.set('BUSINESS_NAME', 'Test Business');
+  props.set('BUSINESS_REPLY_TO', 'reply@example.test');
+  props.set('LEGACYHUB_LEADS_EMAIL', 'team@example.test');
+  const e = envelope();
+  send(e);
+  send(e);
+  expect(mail).toHaveBeenCalledTimes(2);
 });

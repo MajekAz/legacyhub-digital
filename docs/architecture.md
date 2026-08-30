@@ -14,7 +14,7 @@ Browser -> same-origin POST /api/leads -> Zod validation -> authenticated JSON P
 
 A UUID request ID survives retry in the mounted form. Apps Script checks the ID and a payload fingerprint under the same script lock as its counter and append. Repeated identical requests return the original reference. A reused ID with different content is rejected. Counters live in Script Properties and are never based on row count. Deleting rows does not permit ID reuse. Operators must never reset the counter during redeployment.
 
-The server sends a timestamp and HMAC-SHA256 signature of `timestamp.requestId.payload`, where payload is the exact JSON data string. The shared secret never travels in the request body. Apps Script accepts a five-minute clock skew. This is a stricter form of the brief's suggested secret-based JSON contract. Authentication proves possession of the server secret; it is not a substitute for public API abuse protection.
+The server sends `{secret, action: "createLead", data, requestId}` over HTTPS. Apps Script compares the shared secret before validating or writing data. The website handles Google result redirects as credential-free GETs. The previous HMAC prototype is superseded; deploy both ends together. See google-workspace-crm.md for the exact contract and live acceptance procedure.
 
 ## Operational limits
 

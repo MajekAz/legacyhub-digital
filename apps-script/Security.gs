@@ -15,24 +15,21 @@ function authenticate(envelope) {
   var secret = PropertiesService.getScriptProperties().getProperty('GOOGLE_CRM_SHARED_SECRET');
   if (!secret || secret.length < 32) throw new Error('configuration');
   if (
-    envelope.version !== 1 ||
+    !envelope ||
+    typeof envelope !== 'object' ||
+    Array.isArray(envelope) ||
     envelope.action !== 'createLead' ||
-    !/^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/.test(envelope.requestId || '') ||
-    typeof envelope.timestamp !== 'number' ||
-    Math.abs(Date.now() - envelope.timestamp) > 300000 ||
-    typeof envelope.payload !== 'string' ||
-    envelope.payload.length > 16000 ||
-    typeof envelope.signature !== 'string'
+    typeof envelope.secret !== 'string' ||
+    envelope.secret.length > 1024 ||
+    !constantEqual(envelope.secret, secret)
+  )
+    throw new Error('unauthorised');
+  if (
+    envelope.requestId !== undefined &&
+    (typeof envelope.requestId !== 'string' ||
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(envelope.requestId))
   )
     throw new Error('invalid');
-  var expected = hex(
-    Utilities.computeHmacSha256Signature(
-      envelope.timestamp + '.' + envelope.requestId + '.' + envelope.payload,
-      secret,
-      Utilities.Charset.UTF_8,
-    ),
-  );
-  if (!constantEqual(envelope.signature, expected)) throw new Error('unauthorised');
 }
 function validateLead(data) {
   if (

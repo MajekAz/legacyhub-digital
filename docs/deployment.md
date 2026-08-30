@@ -2,8 +2,8 @@
 
 ## Isolation
 
-- Create/verify a new GitHub repository, suggested `MajekAz/legacyhub-digital`. The local repository has no configured remote. Do not point it at `MajekAz/baba-muyi-legacy`.
-- Review and approve the implementation/validation report before pushing. Suggested branch: feature/foundation. No automatic push, merge or deploy.
+- The local remote is `https://github.com/MajekAz/legacyhub-digital.git`; verify access before any approved push. Do not point it at `MajekAz/baba-muyi-legacy`.
+- Review and approve the implementation/validation report before pushing. CRM branch: feature/google-workspace-crm. No automatic push, merge or deploy.
 - Create a separate Hostinger Node.js application, project secrets, domain mapping and logs. Confirm the actual Hostinger plan supports this Next.js version and server Route Handlers; static-only hosting is unsuitable.
 - Do not reuse Baba Muyi production infrastructure or data. Do not publish the Sites adapter as a substitute for the intended deployment.
 

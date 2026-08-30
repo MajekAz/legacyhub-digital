@@ -1,5 +1,6 @@
 import { PageHero, AudienceCards, ConsultationCTA } from '@/components/sections';
 import { pageMetadata } from '@/lib/metadata';
+import { pageHeroes } from '@/content/heroes';
 export const metadata = pageMetadata(
   'Who we serve',
   'For families, leaders and organisations preserving the stories, values and contributions that connect generations.',
@@ -8,13 +9,8 @@ export const metadata = pageMetadata(
 export default function Page() {
   return (
     <main id="main">
-      <PageHero eyebrow="Who we serve" title="Every legacy begins with people.">
-        <p>
-          For families, leaders and organisations preserving the stories, values and contributions
-          that connect generations.
-        </p>
-      </PageHero>
-      <section className="section wrap">
+      <PageHero {...pageHeroes['/who-we-serve']} />
+      <section className="section wrap" id="audiences">
         <AudienceCards />
       </section>
       <ConsultationCTA />

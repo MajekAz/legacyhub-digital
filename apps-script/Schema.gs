@@ -85,7 +85,7 @@ function openCrm() {
   return SpreadsheetApp.openById(id);
 }
 function verifyHeaders(sheet, headers) {
-  if (!sheet) throw new Error('schema');
+  if (!sheet || sheet.getMaxColumns() < headers.length) throw new Error('schema');
   var actual = sheet.getRange(1, 1, 1, headers.length).getValues()[0];
   if (JSON.stringify(actual) !== JSON.stringify(headers)) throw new Error('schema');
 }
@@ -105,6 +105,8 @@ function setupCrm() {
     };
     Object.keys(tabs).forEach(function (name) {
       var sheet = book.getSheetByName(name) || book.insertSheet(name);
+      if (sheet.getMaxColumns() < tabs[name].length)
+        sheet.insertColumnsAfter(sheet.getMaxColumns(), tabs[name].length - sheet.getMaxColumns());
       if (sheet.getLastRow() === 0) {
         sheet.getRange(1, 1, 1, tabs[name].length).setValues([tabs[name]]);
         sheet.setFrozenRows(1);

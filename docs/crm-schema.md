@@ -60,4 +60,4 @@ The first 35 headers preserve the supplied integration schema. Added fields are 
 - System_Config: Key, Value (non-secret operational settings; not read automatically in Phase 1).
 - Activity_Log: Timestamp, Lead_ID, Event, Outcome.
 
-Only Leads persistence and Activity_Log writes are automated. Other tabs are scaffolding for future workflows.
+Leads persistence, Activity_Log writes and configured initial Follow_Ups records are automated. Other tabs remain scaffolding for future workflows.
