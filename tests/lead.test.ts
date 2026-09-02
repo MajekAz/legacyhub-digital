@@ -64,6 +64,28 @@ describe('lead validation', () => {
       }).success,
     ).toBe(true);
   });
+  it('accepts a checklist lead with an explicit marketing preference', () => {
+    expect(
+      leadSchema.safeParse({
+        ...input,
+        type: 'lead_magnet',
+        category: 'Family Legacy Checklist',
+        serviceInterest: 'Not sure yet',
+        marketingConsent: false,
+        marketingConsentVersion: '2026-08-31-v1',
+      }).success,
+    ).toBe(true);
+  });
+  it('does not infer marketing consent for a checklist lead', () => {
+    expect(
+      leadSchema.safeParse({
+        ...input,
+        type: 'lead_magnet',
+        category: 'Family Legacy Checklist',
+        serviceInterest: 'Not sure yet',
+      }).success,
+    ).toBe(false);
+  });
 });
 describe('CRM client', () => {
   it('sends an authenticated server request and returns only the reference', async () => {

@@ -38,6 +38,37 @@ it('saves a valid contact in the same CRM and prevents caching', async () => {
   );
 });
 it.each([
+  ['facebook', 'Facebook'],
+  ['instagram', 'Instagram'],
+  ['', 'Lead Magnet'],
+])('maps checklist attribution %s to %s without changing campaign fields', async (utmSource, source) => {
+  const leadMagnet = {
+    ...valid,
+    type: 'lead_magnet',
+    category: 'Family Legacy Checklist',
+    serviceInterest: 'Not sure yet',
+    marketingConsent: false,
+    marketingConsentVersion: '2026-08-31-v1',
+    sourcePage: '/resources/family-legacy-checklist',
+    landingPage: '/resources/family-legacy-checklist',
+    utmSource,
+    utmMedium: 'paid_social',
+    utmCampaign: 'family_legacy_uk',
+    utmContent: 'video_01',
+  };
+  expect((await POST(request(leadMagnet))).status).toBe(200);
+  expect(createCrmLead).toHaveBeenCalledWith(
+    expect.objectContaining({
+      source,
+      utmSource,
+      utmMedium: 'paid_social',
+      utmCampaign: 'family_legacy_uk',
+      utmContent: 'video_01',
+    }),
+    valid.requestId,
+  );
+});
+it.each([
   { consent: false },
   { email: 'invalid' },
   { website: 'bot' },

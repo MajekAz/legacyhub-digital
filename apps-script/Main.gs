@@ -95,6 +95,10 @@ function saveLead(data, requestId, payload) {
       Payload_Hash: hash,
       Project_Status: 'NOT_STARTED',
     };
+    if (typeof data.marketingConsent === 'boolean') {
+      record.Marketing_Consent = data.marketingConsent;
+      record.Marketing_Consent_At = now;
+    }
     Object.keys(FIELD_COLUMNS).forEach(function (key) {
       record[FIELD_COLUMNS[key]] = Array.isArray(data[key]) ? data[key].join('; ') : data[key];
     });

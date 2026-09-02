@@ -28,6 +28,12 @@ export default function Page() {
         manage follow-up. Agreeing to enquiry contact is not permission for unrelated marketing and
         does not create a contract.
       </p>
+      <p>
+        When you request a free resource, the required checkbox permits delivery of that resource
+        and a response about the request. A separate, optional and unchecked checkbox records
+        whether you would like occasional practical follow-up emails. Resource delivery is not
+        conditional on choosing those optional emails.
+      </p>
       <h2>Google Workspace CRM</h2>
       <p>
         The website sends validated enquiries through its server to Google Apps Script and a private

@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { it, expect } from 'vitest';
 import { LeadForm } from '@/components/lead-form';
@@ -11,6 +11,7 @@ import Privacy from '@/app/privacy/page';
 import Terms from '@/app/terms/page';
 import { pageMetadata } from '@/lib/metadata';
 import { pageHeroes } from '@/content/heroes';
+import { familyLegacyChecklist } from '@/content/lead-magnets';
 it('renders every consultation field and accessible consent', () => {
   const html = renderToStaticMarkup(<LeadForm />);
   for (const name of [
@@ -94,4 +95,16 @@ it('page metadata has a page-specific canonical and clears inherited images', ()
     openGraph: { title: 'Family', images: [] },
     twitter: { images: [] },
   });
+});
+it('defines the checklist funnel with the approved production PDF', () => {
+  expect(familyLegacyChecklist.landingPath).toBe('/resources/family-legacy-checklist');
+  expect(familyLegacyChecklist.thankYouPath).toBe('/thank-you/family-legacy-checklist');
+  expect(familyLegacyChecklist.downloadPath).toBe(
+    '/downloads/LegacyHub_Family_Legacy_Preservation_Guide.pdf',
+  );
+  const pdf = readFileSync(
+    'public/downloads/LegacyHub_Family_Legacy_Preservation_Guide.pdf',
+  );
+  expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
+  expect(pdf.byteLength).toBeGreaterThan(1_000_000);
 });

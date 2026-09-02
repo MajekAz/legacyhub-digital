@@ -1,11 +1,16 @@
-import { readConsent } from './attribution';
-type EventName =
+import { getAttribution, readConsent } from './attribution';
+export type EventName =
   | 'page_view'
   | 'lead_form_started'
   | 'lead_form_submitted'
   | 'consultation_cta_click'
   | 'whatsapp_click'
-  | 'case_study_click';
+  | 'case_study_click'
+  | 'lead_magnet_view'
+  | 'lead_magnet_form_start'
+  | 'lead_magnet_submit'
+  | 'lead_magnet_success'
+  | 'lead_magnet_download';
 declare global {
   interface Window {
     dataLayer?: unknown[];
@@ -25,12 +30,26 @@ export function track(event: EventName) {
     page_location: location.origin + location.pathname,
     page_referrer: '',
     page_title: document.title,
+    ...Object.fromEntries(
+      Object.entries(getAttribution())
+        .filter(([key, value]) => key.startsWith('utm') && value)
+        .map(([key, value]) => [key.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`), value]),
+    ),
   };
   if (consent.analytics && process.env.NEXT_PUBLIC_GA_ID) window.gtag?.('event', event, clean);
   if (consent.marketing && process.env.NEXT_PUBLIC_META_PIXEL_ID) {
     if (event === 'page_view') window.fbq?.('track', 'PageView');
-    else if (event === 'lead_form_submitted') window.fbq?.('track', 'Lead');
-    else window.fbq?.('trackCustom', event);
+    else if (event === 'lead_magnet_view')
+      window.fbq?.('track', 'ViewContent', {
+        ...clean,
+        content_name: 'Family Legacy Preservation Checklist',
+        content_category: 'Lead magnet',
+      });
+    else if (event === 'lead_form_submitted') window.fbq?.('track', 'Lead', clean);
+    else if (event === 'lead_magnet_success') {
+      window.fbq?.('track', 'Lead', clean);
+      window.fbq?.('track', 'CompleteRegistration', clean);
+    } else window.fbq?.('trackCustom', event, clean);
   }
 }
 export function initAnalytics() {

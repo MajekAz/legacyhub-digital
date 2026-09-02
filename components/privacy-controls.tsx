@@ -38,7 +38,8 @@ export function PrivacyControls() {
       if (
         name === 'consultation_cta_click' ||
         name === 'case_study_click' ||
-        name === 'whatsapp_click'
+        name === 'whatsapp_click' ||
+        name === 'lead_magnet_download'
       )
         track(name);
     };
@@ -66,6 +67,7 @@ export function PrivacyControls() {
     initAnalytics();
     getAttribution();
     track('page_view');
+    if (pathname.startsWith('/resources/')) track('lead_magnet_view');
   }
   return (
     <>

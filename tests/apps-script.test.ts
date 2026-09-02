@@ -151,6 +151,11 @@ it('creates the exact seven CRM tabs and stable headers', () => {
   expect(ctx.LEAD_HEADERS).toContain('Lead_ID');
   expect(ctx.LEAD_HEADERS).toContain('UTM_Campaign');
   expect(ctx.LEAD_HEADERS).toContain('Consent_Version');
+  expect(ctx.LEAD_HEADERS.slice(-3)).toEqual([
+    'Marketing_Consent',
+    'Marketing_Consent_At',
+    'Marketing_Consent_Version',
+  ]);
 });
 it('generates central references under a script lock', () => {
   expect(send(envelope())).toEqual({ ok: true, leadId: 'LHD-0001' });
@@ -205,8 +210,23 @@ it('applies simple score, NEW status and configured follow-up date', () => {
   expect(row[ctx.LEAD_HEADERS.indexOf('Priority')]).toBe('Hot');
   expect(row[ctx.LEAD_HEADERS.indexOf('Next_Follow_Up')]).toBeTruthy();
 });
-it('expands a new Leads sheet to 42 columns', () => {
-  expect(sheets.get('Leads')!.columns).toBe(42);
+it('expands a new Leads sheet to 45 columns', () => {
+  expect(sheets.get('Leads')!.columns).toBe(45);
+});
+it('stores an explicit checklist marketing preference independently', () => {
+  const e = envelope({
+    type: 'lead_magnet',
+    category: 'Family Legacy Checklist',
+    serviceInterest: 'Not sure yet',
+    source: 'Facebook',
+    marketingConsent: false,
+    marketingConsentVersion: '2026-08-31-v1',
+  });
+  expect(send(e).ok).toBe(true);
+  const row = sheets.get('Leads')!.rows[1];
+  expect(row[ctx.LEAD_HEADERS.indexOf('Marketing_Consent')]).toBe(false);
+  expect(row[ctx.LEAD_HEADERS.indexOf('Marketing_Consent_At')]).toBeTruthy();
+  expect(row[ctx.LEAD_HEADERS.indexOf('Marketing_Consent_Version')]).toBe('2026-08-31-v1');
 });
 it('creates only one follow-up when a lead is retried', () => {
   props.set('FOLLOW_UP_DAYS', '2');

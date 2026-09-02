@@ -62,10 +62,20 @@ export async function POST(request: Request) {
   if (!allowRequest(`email:${data.email}`, 5))
     return json({ ok: false, error: 'Please wait a minute before trying again.' }, 429);
   try {
+    const source =
+      data.type === 'lead_magnet'
+        ? data.utmSource.toLowerCase() === 'facebook'
+          ? 'Facebook'
+          : data.utmSource.toLowerCase() === 'instagram'
+            ? 'Instagram'
+            : 'Lead Magnet'
+        : data.type === 'consultation'
+          ? 'Website consultation'
+          : 'Website contact';
     const leadId = await createCrmLead(
       {
         ...data,
-        source: data.type === 'consultation' ? 'Website consultation' : 'Website contact',
+        source,
         consentVersion: CONSENT_VERSION,
       },
       requestId,

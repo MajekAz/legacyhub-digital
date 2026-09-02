@@ -41,7 +41,7 @@ function validateLead(data) {
   )
     throw new Error('invalid');
   var enums = {
-    type: ['consultation', 'contact'],
+    type: ['consultation', 'contact', 'lead_magnet'],
     legacySubjectType: [
       '',
       'Parent',
@@ -72,6 +72,7 @@ function validateLead(data) {
       'Media/documentary',
       'Technical',
       'Other',
+      'Family Legacy Checklist',
     ],
   };
   var limits = {
@@ -84,11 +85,12 @@ function validateLead(data) {
     sourcePage: 250,
     landingPage: 250,
     referrer: 250,
+    marketingConsentVersion: 40,
   };
   Object.keys(data).forEach(function (key) {
     if (key !== 'consent' && !Object.prototype.hasOwnProperty.call(FIELD_COLUMNS, key))
       throw new Error('unknown_field');
-    if (key === 'consent' || key === 'materialsAvailable') return;
+    if (key === 'consent' || key === 'marketingConsent' || key === 'materialsAvailable') return;
     if (typeof data[key] !== 'string' || data[key].length > (limits[key] || 120))
       throw new Error('invalid');
   });
@@ -121,6 +123,19 @@ function validateLead(data) {
     throw new Error('invalid');
   if (data.phone && !/^[+()\d\s.-]{7,40}$/.test(data.phone)) throw new Error('invalid');
   if (data.preferredContactMethod !== 'Email' && !data.phone) throw new Error('invalid');
+  if (
+    data.type === 'lead_magnet' &&
+    (data.category !== 'Family Legacy Checklist' ||
+      data.serviceInterest !== 'Not sure yet' ||
+      typeof data.marketingConsent !== 'boolean' ||
+      data.marketingConsentVersion !== '2026-08-31-v1')
+  )
+    throw new Error('invalid');
+  if (
+    data.type !== 'lead_magnet' &&
+    (data.marketingConsent !== undefined || data.marketingConsentVersion !== undefined)
+  )
+    throw new Error('invalid');
   ['sourcePage', 'landingPage'].forEach(function (k) {
     if (data[k] && !/^\/[a-zA-Z0-9/_-]*$/.test(data[k])) throw new Error('invalid');
   });
