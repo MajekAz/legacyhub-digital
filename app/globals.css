@@ -200,6 +200,27 @@ p {
 .section-intro > p {
   font-size: 1.04rem;
 }
+.home-resource {
+  background: var(--paper-2);
+  border-block: 1px solid var(--line);
+}
+.home-resource-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: clamp(44px, 8vw, 112px);
+  align-items: center;
+}
+.home-resource-grid h2,
+.home-resource-grid p {
+  margin-bottom: 0;
+}
+.home-resource-grid > div:last-child {
+  padding-left: clamp(24px, 4vw, 54px);
+  border-left: 1px solid var(--border-strong);
+}
+.home-resource-grid .button {
+  margin-top: 28px;
+}
 .site-header {
   background: rgba(247, 243, 234, 0.98);
   border-bottom: 1px solid var(--line);
@@ -964,8 +985,8 @@ footer p {
   .desktop-nav {
     gap: 15px;
   }
-  .desktop-nav > a:nth-child(4),
-  .desktop-nav > a:nth-child(5) {
+  .desktop-nav > a:nth-child(5),
+  .desktop-nav > a:nth-child(6) {
     display: none;
   }
   .audience-grid,
@@ -1084,6 +1105,7 @@ footer p {
     padding-block: 14px;
   }
   .section-intro,
+  .home-resource-grid,
   .case-study-grid,
   .studio-grid,
   .final-cta-grid,
@@ -1093,6 +1115,12 @@ footer p {
   }
   .section-intro {
     align-items: start;
+  }
+  .home-resource-grid > div:last-child {
+    padding-left: 0;
+    padding-top: 24px;
+    border-left: 0;
+    border-top: 1px solid var(--border-strong);
   }
   .audience-grid,
   .preserve-list,

@@ -50,9 +50,20 @@ it('homepage contains primary positioning, proof, packages and FAQs', () => {
     'Tioluwalase',
     'The material that makes a life recognisable.',
     'A heritage preservation studio',
+    'Free family legacy guide',
+    'Preserve the stories your family should never lose.',
+    'Get the Free Guide',
   ])
     expect(html).toContain(copy);
   expect(html).not.toContain('wa.me');
+});
+it('links the checklist resource from desktop, mobile and footer navigation', () => {
+  const layout = readFileSync('app/layout.tsx', 'utf8');
+  const resourcePath = '/resources/family-legacy-checklist';
+  expect(layout.match(new RegExp(resourcePath, 'g'))).toHaveLength(3);
+  expect(layout.indexOf('Our Work')).toBeLessThan(layout.indexOf('Resources'));
+  expect(layout.indexOf('Resources')).toBeLessThan(layout.indexOf('About'));
+  expect(layout).toContain('Free Family Legacy Guide');
 });
 it('case study uses only an external archive link and clear notice', () => {
   const html = renderToStaticMarkup(<CaseStudy />);

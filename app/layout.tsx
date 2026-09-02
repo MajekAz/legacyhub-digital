@@ -56,6 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Link href="/services">Services</Link>
               <Link href="/how-it-works">How It Works</Link>
               <Link href="/case-studies">Our Work</Link>
+              <Link href="/resources/family-legacy-checklist">Resources</Link>
               <Link href="/about">About</Link>
               <Link href="/contact">Contact</Link>
               <Link className="button small-button" href="/book-consultation">
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <Link href="/services">Services</Link>
                 <Link href="/how-it-works">How It Works</Link>
                 <Link href="/case-studies">Our Work</Link>
+                <Link href="/resources/family-legacy-checklist">Resources</Link>
                 <Link href="/about">About</Link>
                 <Link href="/contact">Contact</Link>
                 <Link className="button" href="/book-consultation">
@@ -96,6 +98,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Link href="/services">Services</Link>
               <Link href="/how-it-works">How It Works</Link>
               <Link href="/case-studies">Our Work</Link>
+              <Link href="/resources/family-legacy-checklist">Free Family Legacy Guide</Link>
               <Link href="/about">About</Link>
             </div>
             <div>
