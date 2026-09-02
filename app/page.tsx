@@ -10,6 +10,7 @@ import {
   ConsultationCTA,
 } from '@/components/sections';
 import { pageHeroes } from '@/content/heroes';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -40,6 +41,24 @@ export default function Home() {
         <AudienceCards />
       </section>
       <Capabilities />
+      <section className="section home-resource">
+        <div className="wrap home-resource-grid">
+          <div>
+            <p className="eyebrow">Free family legacy guide</p>
+            <h2>Preserve the stories your family should never lose.</h2>
+          </div>
+          <div>
+            <p>
+              Download our practical Family Legacy Preservation Guide and discover 25 important
+              photographs, documents, memories and stories worth organising for future
+              generations.
+            </p>
+            <Link className="button" href="/resources/family-legacy-checklist">
+              Get the Free Guide
+            </Link>
+          </div>
+        </div>
+      </section>
       <Process />
       <Proof />
       <TrustReasons />
