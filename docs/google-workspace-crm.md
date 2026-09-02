@@ -2,6 +2,8 @@
 
 This branch implements the requested shared-secret JSON contract. No live Google resource or deployment has been created or tested during this change. All automated tests use local mocks. Do not deploy or send a real lead until the implementation has been reviewed and deployment authorised.
 
+For the existing production CRM, follow the reviewed [Phase 2 migration and activation procedure](email-nurture-automation.md). The setup instructions below are for a new or isolated test CRM; do not recreate or modify production during development.
+
 ## 1. Create the private Google Sheet
 
 Using the dedicated business Workspace account, create **LegacyHub Digital CRM**. Restrict sharing to authorised staff; do not publish the spreadsheet or enable public link access. Do not reuse any Baba Muyi resources. Copy the spreadsheet ID privately from its URL.
@@ -15,17 +17,24 @@ The `setupCrm` function creates these tabs and headers without clearing data:
 - Business_Profile
 - System_Config
 - Activity_Log
+- Email_Nurture
+- Email_Suppression
+- Email_Send_Log
 
 The exact headers are defined in `apps-script/Schema.gs` and listed in `docs/crm-schema.md`. The deployed 42-column contract is preserved in order. Three append-only fields record a lead-magnet subscriber's distinct optional marketing choice. Setup expands a new sheet to 45 columns and safely appends those three headers to a matching 42-column Leads sheet. Existing mismatched headers fail safely: do not rename or reorder them, and back up the sheet before running setup.
 
 ## 2. Create and configure Apps Script
 
-Create a **new** Apps Script project under the business account. Add four script files and paste the corresponding repository contents:
+Create a **new** Apps Script project under the business account. Add six script files and paste the corresponding repository contents:
 
 - `Schema.gs`: schema, setup and header checks.
 - `Security.gs`: shared-secret comparison, input validation and spreadsheet text escaping.
 - `Main.gs`: JSON endpoint, safe lead counter, idempotency, score and follow-ups.
 - `Notifications.gs`: optional emails and activity logging.
+- `EmailTemplates.gs`: transactional guide and marketing email content.
+- `EmailNurture.gs`: consent-gated queue, suppression, unsubscribe and send ledger.
+
+Keep `NURTURE_ENABLED=false` until the separate activation review; setup creates no time trigger.
 
 Enable showing the manifest in Project Settings and replace `appsscript.json` with the repository manifest. Remove unused default code. Review spreadsheet and send-mail scopes before authorising.
 
@@ -106,7 +115,7 @@ When EMAIL_ENABLED is true and identity is configured, send a plain-text acknowl
 
 Use an authorised test spreadsheet and mailboxes you control before production. Do not use a real prospective customer's personal data.
 
-1. Finish steps 1–4. Check all seven tabs, all 45 Leads headers, and `LEAD_COUNTER=0` for a genuinely new test CRM. Set FOLLOW_UP_DAYS=2 if testing follow-ups. Configure controlled sender/recipient addresses and enable email only if sending those messages is authorised.
+1. Finish steps 1–4. Check all ten tabs, all 45 Leads headers, and `LEAD_COUNTER=0` for a genuinely new test CRM. Set FOLLOW_UP_DAYS=2 if testing follow-ups. Configure controlled sender/recipient addresses and enable email only if sending those messages is authorised.
 2. Start `pnpm dev`. In a fresh browser session open:
    `http://127.0.0.1:3100/landing/diaspora-family-archive?utm_source=facebook&utm_medium=paid_social&utm_campaign=crm_live_smoke&utm_content=test_01&utm_term=heritage`
 3. Accept **marketing & attribution** storage in Cookie preferences (analytics can remain off). Navigate internally to Book Consultation if desired. This tests persistence from the campaign landing page to the consultation page.

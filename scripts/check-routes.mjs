@@ -11,6 +11,7 @@ const paths = [
   '/contact',
   '/book-consultation',
   '/privacy',
+  '/unsubscribe',
   '/terms',
   '/resources/family-legacy-checklist',
   '/thank-you/family-legacy-checklist',
@@ -29,6 +30,8 @@ for (const path of paths) {
     throw Error(`Missing canonical ${path}`);
   if (html.includes('GOOGLE_CRM_SHARED_SECRET') || html.includes('script.google.com/macros'))
     throw Error(`Server config leaked ${path}`);
+  if (path === '/unsubscribe' && !html.includes('noindex'))
+    throw Error('Unsubscribe page must remain noindex');
   console.log(`PASS ${path}`);
 }
 for (const path of ['/sitemap.xml', '/robots.txt', '/og.png']) {
@@ -58,4 +61,6 @@ console.log('PASS approved checklist PDF and legacy download redirect');
 if ((await fetch(base + '/api/leads')).status !== 405) throw Error('API GET not rejected');
 if ((await fetch(base + '/landing/not-a-campaign')).status !== 404)
   throw Error('Unknown campaign not rejected');
+if ((await fetch(base + '/api/unsubscribe')).status !== 405)
+  throw Error('Unsubscribe API GET must not mutate preferences');
 console.log('PASS API method and unknown campaign checks');

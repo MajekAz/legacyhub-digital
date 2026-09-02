@@ -14,6 +14,7 @@ function doPost(e) {
       return output({ ok: false, error: 'invalid_request' });
     var envelope = JSON.parse(e.postData.contents);
     authenticate(envelope);
+    if (envelope.action === 'unsubscribe') return output(unsubscribeNurture(envelope.data));
     var data = envelope.data;
     validateLead(data);
     // The website always supplies requestId. Direct integrations may omit it,
@@ -57,6 +58,7 @@ function saveLead(data, requestId, payload) {
         if (row[LEAD_HEADERS.indexOf('Payload_Hash')] !== hash)
           throw new Error('idempotency_conflict');
         ensureFollowUp(book, row[0], row[LEAD_HEADERS.indexOf('Next_Follow_Up')]);
+        safeEnrolNurture(book, row[0], data, row[LEAD_HEADERS.indexOf('Created_At')]);
         return { leadId: row[0], created: false };
       }
     }
@@ -115,6 +117,7 @@ function saveLead(data, requestId, payload) {
     SpreadsheetApp.flush();
     safeActivity(leadId, 'lead_created', 'saved');
     ensureFollowUp(book, leadId, record.Next_Follow_Up);
+    safeEnrolNurture(book, leadId, data, now);
     return { leadId: leadId, created: true };
   } finally {
     lock.releaseLock();

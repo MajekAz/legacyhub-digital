@@ -18,7 +18,7 @@ function authenticate(envelope) {
     !envelope ||
     typeof envelope !== 'object' ||
     Array.isArray(envelope) ||
-    envelope.action !== 'createLead' ||
+    ['createLead', 'unsubscribe'].indexOf(envelope.action) === -1 ||
     typeof envelope.secret !== 'string' ||
     envelope.secret.length > 1024 ||
     !constantEqual(envelope.secret, secret)
