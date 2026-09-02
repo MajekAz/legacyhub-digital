@@ -9,8 +9,8 @@ function safeActivity(leadId, event, outcome) {
 }
 function notifyLead(data, leadId) {
   var props = PropertiesService.getScriptProperties();
-  var name = props.getProperty('BUSINESS_NAME');
-  var replyTo = props.getProperty('BUSINESS_REPLY_TO');
+  var name = props.getProperty('EMAIL_FROM_NAME') || props.getProperty('BUSINESS_NAME');
+  var replyTo = props.getProperty('EMAIL_REPLY_TO') || props.getProperty('BUSINESS_REPLY_TO');
   if (props.getProperty('EMAIL_ENABLED') !== 'true' || !name || !replyTo) {
     safeActivity(leadId, 'email', 'disabled');
     return;
@@ -18,20 +18,33 @@ function notifyLead(data, leadId) {
   try {
     MailApp.sendEmail({
       to: data.email,
-      subject: 'We received your LegacyHub Digital Heritage enquiry',
+      subject:
+        data.type === 'lead_magnet'
+          ? 'Your Family Legacy Preservation Guide'
+          : 'We received your LegacyHub Digital Heritage enquiry',
       name: name,
       replyTo: replyTo,
       body:
-        'Hello ' +
-        data.name +
-        ',\n\nThank you for contacting LegacyHub Digital Heritage. We have received your enquiry and will follow up using your preferred contact method.\n\nReference: ' +
-        leadId +
-        '\n\nThis acknowledgement does not confirm an appointment or create a contract.\n\n' +
-        name,
+        data.type === 'lead_magnet'
+          ? guideDeliveryBody(data.name)
+          : 'Hello ' +
+            data.name +
+            ',\n\nThank you for contacting LegacyHub Digital Heritage. We have received your enquiry and will follow up using your preferred contact method.\n\nReference: ' +
+            leadId +
+            '\n\nThis acknowledgement does not confirm an appointment or create a contract.\n\n' +
+            name,
     });
-    safeActivity(leadId, 'acknowledgement', 'sent');
+    safeActivity(
+      leadId,
+      data.type === 'lead_magnet' ? 'guide_delivery' : 'acknowledgement',
+      'sent',
+    );
   } catch (err) {
-    safeActivity(leadId, 'acknowledgement', 'failed');
+    safeActivity(
+      leadId,
+      data.type === 'lead_magnet' ? 'guide_delivery' : 'acknowledgement',
+      'failed',
+    );
   }
   var internal = props.getProperty('LEGACYHUB_LEADS_EMAIL');
   if (!internal) {

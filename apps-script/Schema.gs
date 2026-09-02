@@ -101,6 +101,9 @@ function setupCrm() {
     var book = openCrm();
     var tabs = {
       Leads: LEAD_HEADERS,
+      Email_Nurture: NURTURE_HEADERS,
+      Email_Suppression: SUPPRESSION_HEADERS,
+      Email_Send_Log: SEND_HEADERS,
       Follow_Ups: ['Follow_Up_ID', 'Lead_ID', 'Due_At', 'Owner', 'Status', 'Notes'],
       Proposals: ['Proposal_ID', 'Lead_ID', 'Status', 'Quoted_Amount', 'Updated_At'],
       Projects: ['Project_ID', 'Lead_ID', 'Project_Status', 'Updated_At'],

@@ -44,6 +44,8 @@ Before automation is enabled, the business must approve:
 - send timing and timezone behavior;
 - whether Apps Script, Google Workspace or an approved email platform will send the sequence.
 
+Phase 2 now supplies a disabled-by-default Workspace processor. See [activation, final code templates and recovery instructions](email-nurture-automation.md). The copy below is the earlier planning draft; `apps-script/EmailTemplates.gs` contains the implementation awaiting business approval.
+
 ## Five-email nurture sequence
 
 ### Email 1 — Immediate

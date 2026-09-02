@@ -1,6 +1,6 @@
 # CRM schema
 
-The seven tabs are Leads, Follow_Ups, Proposals, Projects, Business_Profile, System_Config and Activity_Log. `setupCrm` is the canonical schema initializer. Do not rename or reorder columns without a versioned migration. Secrets belong in Script Properties, never System_Config or Business_Profile.
+The original seven tabs are Leads, Follow_Ups, Proposals, Projects, Business_Profile, System_Config and Activity_Log. `setupCrm` is the canonical schema initializer. Do not rename or reorder columns without a versioned migration. Secrets belong in Script Properties, never System_Config or Business_Profile.
 
 ## Leads columns, in order
 
@@ -64,3 +64,7 @@ The first 42 headers preserve the deployed integration schema. The final three a
 - Activity_Log: Timestamp, Lead_ID, Event, Outcome.
 
 Leads persistence, Activity_Log writes and configured initial Follow_Ups records are automated. Other tabs remain scaffolding for future workflows.
+
+## Phase 2 email tabs
+
+`Email_Nurture`, `Email_Suppression` and `Email_Send_Log` are additive tables defined in `apps-script/EmailNurture.gs`. The Leads contract remains unchanged. See [email nurture architecture and exact headers](email-nurture-automation.md) for schema, token access restrictions, safe migration and recovery. No production migration is authorized by this document.
