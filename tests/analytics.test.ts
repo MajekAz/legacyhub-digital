@@ -61,8 +61,28 @@ it('maps only successful submission events to Meta Lead', () => {
     getItem: () => JSON.stringify({ analytics: false, marketing: true }),
   });
   track('lead_form_started');
-  expect(meta).toHaveBeenCalledWith('trackCustom', 'lead_form_started');
+  expect(meta).toHaveBeenCalledWith(
+    'trackCustom',
+    'lead_form_started',
+    expect.objectContaining({ utm_source: 'facebook' }),
+  );
   meta.mockClear();
   track('lead_form_submitted');
-  expect(meta).toHaveBeenCalledWith('track', 'Lead');
+  expect(meta).toHaveBeenCalledWith('track', 'Lead', expect.objectContaining({ page_title: 'Contact' }));
+});
+it('fires Meta Lead and CompleteRegistration only after checklist success', () => {
+  vi.stubGlobal('localStorage', {
+    getItem: () => JSON.stringify({ analytics: false, marketing: true }),
+  });
+  track('lead_magnet_submit');
+  expect(meta).toHaveBeenCalledWith(
+    'trackCustom',
+    'lead_magnet_submit',
+    expect.objectContaining({ utm_source: 'facebook' }),
+  );
+  expect(meta).not.toHaveBeenCalledWith('track', 'Lead', expect.anything());
+  meta.mockClear();
+  track('lead_magnet_success');
+  expect(meta).toHaveBeenCalledWith('track', 'Lead', expect.anything());
+  expect(meta).toHaveBeenCalledWith('track', 'CompleteRegistration', expect.anything());
 });

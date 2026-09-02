@@ -48,8 +48,11 @@ The seven tabs are Leads, Follow_Ups, Proposals, Projects, Business_Profile, Sys
 | 40       | `Consent_Version`          |
 | 41       | `Request_ID`               |
 | 42       | `Payload_Hash`             |
+| 43       | `Marketing_Consent`        |
+| 44       | `Marketing_Consent_At`     |
+| 45       | `Marketing_Consent_Version` |
 
-The first 35 headers preserve the supplied integration schema. Added fields are Enquiry_Type, Enquiry_Category, Consent, Consent_At, Consent_Version, Request_ID and Payload_Hash. Timestamps use ISO 8601 UTC; Materials_Available is a semicolon-separated list; Lead_Score is numeric; Priority is Hot/Warm/Cold. Consent_At is assigned when Apps Script persists the request.
+The first 42 headers preserve the deployed integration schema. The final three append-only fields record the distinct optional marketing choice for lead magnets. Timestamps use ISO 8601 UTC; Materials_Available is a semicolon-separated list; Lead_Score is numeric; Priority is Hot/Warm/Cold. Consent timestamps are assigned when Apps Script persists the request.
 
 ## Prepared tabs
 

@@ -16,7 +16,7 @@ The `setupCrm` function creates these tabs and headers without clearing data:
 - System_Config
 - Activity_Log
 
-The exact headers are defined in `apps-script/Schema.gs` and listed in `docs/crm-schema.md`. All 35 requested Leads columns are preserved in order. Seven existing appended fields retain enquiry category, consent and retry protection. Setup expands the default 26-column sheet to fit the 42-column schema. Existing mismatched headers fail safely: do not rename or reorder them. Back up and explicitly migrate an existing 35-column-only sheet before using it; setup does not silently migrate existing records.
+The exact headers are defined in `apps-script/Schema.gs` and listed in `docs/crm-schema.md`. The deployed 42-column contract is preserved in order. Three append-only fields record a lead-magnet subscriber's distinct optional marketing choice. Setup expands a new sheet to 45 columns and safely appends those three headers to a matching 42-column Leads sheet. Existing mismatched headers fail safely: do not rename or reorder them, and back up the sheet before running setup.
 
 ## 2. Create and configure Apps Script
 
@@ -106,7 +106,7 @@ When EMAIL_ENABLED is true and identity is configured, send a plain-text acknowl
 
 Use an authorised test spreadsheet and mailboxes you control before production. Do not use a real prospective customer's personal data.
 
-1. Finish steps 1–4. Check all seven tabs, all 42 Leads headers, and `LEAD_COUNTER=0` for a genuinely new test CRM. Set FOLLOW_UP_DAYS=2 if testing follow-ups. Configure controlled sender/recipient addresses and enable email only if sending those messages is authorised.
+1. Finish steps 1–4. Check all seven tabs, all 45 Leads headers, and `LEAD_COUNTER=0` for a genuinely new test CRM. Set FOLLOW_UP_DAYS=2 if testing follow-ups. Configure controlled sender/recipient addresses and enable email only if sending those messages is authorised.
 2. Start `pnpm dev`. In a fresh browser session open:
    `http://127.0.0.1:3100/landing/diaspora-family-archive?utm_source=facebook&utm_medium=paid_social&utm_campaign=crm_live_smoke&utm_content=test_01&utm_term=heritage`
 3. Accept **marketing & attribution** storage in Cookie preferences (analytics can remain off). Navigate internally to Book Consultation if desired. This tests persistence from the campaign landing page to the consultation page.

@@ -1206,11 +1206,140 @@ main[data-landing] #consultation {
 main[data-landing] #consultation > h2 {
   max-width: 650px;
 }
+body:has(main[data-funnel]) > .site-header {
+  display: none;
+}
+.focus-header {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.focus-header .brand {
+  color: var(--ink);
+}
+.resource-why {
+  border-bottom: 1px solid var(--line);
+}
+.resource-benefit-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  padding: 0;
+  margin: 42px 0 0;
+  border-top: 1px solid var(--line);
+}
+.resource-benefit-list li {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: 18px 12px 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.resource-benefit-list li:nth-child(odd) {
+  border-right: 1px solid var(--line);
+}
+.resource-benefit-list li:nth-child(even) {
+  padding-left: 24px;
+}
+.resource-benefit-list span {
+  color: var(--ochre);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+.resource-benefit-list strong {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+.resource-capture-section {
+  padding: clamp(64px, 9vw, 112px) 0;
+  background: var(--paper-2);
+}
+.resource-capture-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(420px, 1.2fr);
+  gap: clamp(44px, 8vw, 110px);
+  align-items: start;
+}
+.resource-capture-grid > div:first-child {
+  position: sticky;
+  top: 30px;
+}
+.resource-reassurance {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.lead-magnet-form {
+  padding: clamp(24px, 4vw, 44px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+}
+.lead-magnet-form fieldset {
+  margin: 24px 0 0;
+  padding: 0;
+  border: 0;
+}
+.resource-consent {
+  display: grid;
+  gap: 14px;
+}
+.resource-trust {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.35fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+.resource-trust h2,
+.resource-trust p {
+  max-width: 760px;
+}
+.resource-thank-you > .prose,
+.resource-placeholder {
+  min-height: 62vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.resource-lead {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+}
+.resource-next-steps {
+  background: var(--paper-2);
+}
+.legal-note {
+  max-width: 760px;
+  padding: 16px 18px;
+  border-left: 3px solid var(--ochre);
+  background: var(--paper-2);
+  font-size: 0.86rem;
+}
 @media (max-width: 720px) {
   .form-page {
     grid-template-columns: 1fr;
   }
   .form-page aside {
     position: static;
+  }
+  .resource-benefit-list,
+  .resource-capture-grid,
+  .resource-trust {
+    grid-template-columns: 1fr;
+  }
+  .resource-benefit-list li:nth-child(odd) {
+    border-right: 0;
+  }
+  .resource-benefit-list li:nth-child(even) {
+    padding-left: 0;
+  }
+  .resource-capture-grid > div:first-child {
+    position: static;
+  }
+  .lead-magnet-form .button {
+    width: 100%;
+    min-height: 48px;
   }
 }

@@ -42,6 +42,9 @@ var LEAD_HEADERS = [
   'Consent_Version',
   'Request_ID',
   'Payload_Hash',
+  'Marketing_Consent',
+  'Marketing_Consent_At',
+  'Marketing_Consent_Version',
 ];
 var PIPELINE = [
   'NEW',
@@ -78,6 +81,8 @@ var FIELD_COLUMNS = {
   type: 'Enquiry_Type',
   category: 'Enquiry_Category',
   consentVersion: 'Consent_Version',
+  marketingConsent: 'Marketing_Consent',
+  marketingConsentVersion: 'Marketing_Consent_Version',
 };
 function openCrm() {
   var id = PropertiesService.getScriptProperties().getProperty('CRM_SPREADSHEET_ID');
@@ -110,6 +115,23 @@ function setupCrm() {
       if (sheet.getLastRow() === 0) {
         sheet.getRange(1, 1, 1, tabs[name].length).setValues([tabs[name]]);
         sheet.setFrozenRows(1);
+      } else if (name === 'Leads') {
+        var previousHeaders = LEAD_HEADERS.slice(0, 42);
+        var addedHeaders = LEAD_HEADERS.slice(42);
+        verifyHeaders(sheet, previousHeaders);
+        var existingTail = sheet
+          .getRange(1, previousHeaders.length + 1, 1, addedHeaders.length)
+          .getValues()[0];
+        if (
+          existingTail.every(function (value) {
+            return value === '' || value === null;
+          })
+        )
+          sheet
+            .getRange(1, previousHeaders.length + 1, 1, addedHeaders.length)
+            .setValues([addedHeaders]);
+        else if (JSON.stringify(existingTail) !== JSON.stringify(addedHeaders))
+          throw new Error('schema');
       } else verifyHeaders(sheet, tabs[name]);
     });
     var leads = book.getSheetByName('Leads');
