@@ -3,14 +3,24 @@ import { pageMetadata } from '@/lib/metadata';
 import { LeadForm } from '@/components/lead-form';
 import { WhatsApp } from '@/components/whatsapp';
 import { pageHeroes } from '@/content/heroes';
+import { PageStructuredData } from '@/components/structured-data';
 export const metadata = pageMetadata(
-  'A first conversation',
-  'Share what you have in mind. We will follow up using your preferred contact method to discuss the right next step.',
+  'Book a Legacy Archive Consultation',
+  'Discuss a family biography, digital memorial, photograph collection or organisational heritage archive with LegacyHub Digital Heritage.',
   '/book-consultation',
 );
 export default function Page() {
   return (
     <main id="main">
+      <PageStructuredData
+        title="Book a Legacy Archive Consultation"
+        description="Discuss your family biography, photographs, memories or organisational heritage archive."
+        path="/book-consultation"
+        breadcrumbs={[
+          ['Home', '/'],
+          ['Book a Consultation', '/book-consultation'],
+        ]}
+      />
       <PageHero {...pageHeroes['/book-consultation']} />
       <section className="section wrap form-page" id="consultation-form">
         <aside>

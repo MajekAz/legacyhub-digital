@@ -1,4 +1,3 @@
-import { StructuredData } from '@/components/structured-data';
 import {
   PageHero,
   AudienceCards,
@@ -15,7 +14,6 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <main id="main">
-      <StructuredData />
       <PageHero {...pageHeroes['/']} />
 
       <aside className="service-note" aria-label="Service summary">
@@ -50,8 +48,7 @@ export default function Home() {
           <div>
             <p>
               Download our practical Family Legacy Preservation Guide and discover 25 important
-              photographs, documents, memories and stories worth organising for future
-              generations.
+              photographs, documents, memories and stories worth organising for future generations.
             </p>
             <Link className="button" href="/resources/family-legacy-checklist">
               Get the Free Guide

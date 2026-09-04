@@ -2,12 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import './globals.css';
 import { PrivacyControls } from '@/components/privacy-controls';
+import { StructuredData } from '@/components/structured-data';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://legacyhubdigital.com'),
   title: {
     default: 'LegacyHub Digital Heritage | Digital Legacy Archives',
-    template: '%s | LegacyHub Digital Heritage',
+    template: '%s | LegacyHub',
   },
   description:
     'Digital Legacy Archives for Families, Leaders and Organisations. Preserve a Life. Protect a Story. Connect Generations.',
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en-GB" data-scroll-behavior="smooth">
       <body>
+        <StructuredData />
         <a className="skip-link" href="#main">
           Skip to content
         </a>
@@ -56,7 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Link href="/services">Services</Link>
               <Link href="/how-it-works">How It Works</Link>
               <Link href="/case-studies">Our Work</Link>
-              <Link href="/resources/family-legacy-checklist">Resources</Link>
+              <Link href="/resources">Resources</Link>
               <Link href="/about">About</Link>
               <Link href="/contact">Contact</Link>
               <Link className="button small-button" href="/book-consultation">
@@ -71,7 +73,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <Link href="/services">Services</Link>
                 <Link href="/how-it-works">How It Works</Link>
                 <Link href="/case-studies">Our Work</Link>
-                <Link href="/resources/family-legacy-checklist">Resources</Link>
+                <Link href="/resources">Resources</Link>
                 <Link href="/about">About</Link>
                 <Link href="/contact">Contact</Link>
                 <Link className="button" href="/book-consultation">
@@ -96,8 +98,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <div>
               <strong>Explore</strong>
               <Link href="/services">Services</Link>
+              <Link href="/who-we-serve">Who We Serve</Link>
+              <Link href="/packages">Packages</Link>
               <Link href="/how-it-works">How It Works</Link>
               <Link href="/case-studies">Our Work</Link>
+              <Link href="/resources">Resources</Link>
               <Link href="/resources/family-legacy-checklist">Free Family Legacy Guide</Link>
               <Link href="/about">About</Link>
             </div>

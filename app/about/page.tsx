@@ -1,14 +1,24 @@
 import { PageHero, ConsultationCTA } from '@/components/sections';
 import { pageMetadata } from '@/lib/metadata';
 import { pageHeroes } from '@/content/heroes';
+import { PageStructuredData } from '@/components/structured-data';
 export const metadata = pageMetadata(
-  'About LegacyHub Digital Heritage',
-  'We help families, leaders and organisations bring meaningful material together into professionally designed digital legacy archives.',
+  'About Our Digital Heritage Studio',
+  'LegacyHub is a Glasgow-based digital heritage studio helping families, leaders and organisations preserve biographies, memories and records.',
   '/about',
 );
 export default function Page() {
   return (
     <main id="main">
+      <PageStructuredData
+        title="About Our Digital Heritage Studio"
+        description="A Glasgow-based digital heritage studio preserving biographies, memories and records."
+        path="/about"
+        breadcrumbs={[
+          ['Home', '/'],
+          ['About', '/about'],
+        ]}
+      />
       <PageHero {...pageHeroes['/about']} />
       <section className="section wrap prose">
         <h2>A service with a human purpose</h2>
@@ -16,6 +26,10 @@ export default function Page() {
           LegacyHub Digital Heritage is a done-for-you commercial service. LegacyHub is the
           underlying digital heritage technology used to deliver client archive projects; we are not
           selling a self-service SaaS subscription.
+        </p>
+        <p>
+          Based in Glasgow, Scotland, we work with families and organisations across the United
+          Kingdom and discuss remote collaboration for projects further afield.
         </p>
         <p>
           Our approach makes room for African family history, cultural context and the connections

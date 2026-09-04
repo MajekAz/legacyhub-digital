@@ -13,6 +13,7 @@ const paths = [
   '/privacy',
   '/unsubscribe',
   '/terms',
+  '/resources',
   '/resources/family-legacy-checklist',
   '/thank-you/family-legacy-checklist',
   '/landing/family-legacy',

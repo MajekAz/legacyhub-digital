@@ -143,7 +143,7 @@ export const faq = [
     'Who owns the material and how long is it hosted?',
     'Ownership, permissions, domain registration, hosting duration, renewals and handover are agreed in writing. Please share only material you have permission to use.',
   ],
-];
+] as const;
 export const archiveCapabilities = [
   'Biography & life history',
   'Photographs & captions',
@@ -156,6 +156,9 @@ export const archiveCapabilities = [
 ];
 export const campaigns = {
   'family-legacy': {
+    seoTitle: 'Family Legacy Websites & Archives',
+    seoDescription:
+      'Preserve family biographies, photographs and memories in a digital family archive designed to connect generations across the UK and beyond.',
     title: 'Keep their stories close. For every generation.',
     eyebrow: 'For parents, grandparents & families',
     problem:
@@ -167,6 +170,9 @@ export const campaigns = {
       'Yes. We can plan a family contribution and review process, so selected memories can be gathered and approved with care.',
   },
   'diaspora-family-archive': {
+    seoTitle: 'Digital Archives for Diaspora Families',
+    seoDescription:
+      'Reconnect family photographs, migration stories and memories across countries in a carefully organised digital family heritage archive.',
     title: 'Different countries. One family story.',
     eyebrow: 'For African diaspora families',
     problem:
@@ -178,6 +184,9 @@ export const campaigns = {
       'We can discuss remote collection and family review. Local interviews or physical digitisation are scoped separately according to location and access.',
   },
   'memorial-archive': {
+    seoTitle: 'Digital Memorial Archives for Families',
+    seoDescription:
+      'Preserve approved photographs, memories and life stories in a dignified digital memorial archive created at your family’s pace.',
     title: 'A life remembered, in its own fullness.',
     eyebrow: 'A thoughtful space for remembrance',
     problem:
@@ -189,6 +198,9 @@ export const campaigns = {
       'No. Work at a pace that feels right for your family. A first conversation can simply help you understand your options.',
   },
   'leaders-and-veterans': {
+    seoTitle: 'Leadership & Veteran Legacy Archives',
+    seoDescription:
+      'Preserve a leader, veteran or professional’s biography, service, photographs and lessons in a considered digital legacy archive.',
     title: 'Honour a life of service. Preserve its lessons.',
     eyebrow: 'For leaders, veterans & professionals',
     problem:
@@ -200,6 +212,9 @@ export const campaigns = {
       'We agree permissions and exclusions before work begins. Do not submit confidential service records or sensitive documents through this enquiry form.',
   },
   organisations: {
+    seoTitle: 'Organisational Heritage Archive Services',
+    seoDescription:
+      'Organise documents, milestones and shared memories into a digital heritage archive for a business, institution or community organisation.',
     title: 'Your shared history deserves a lasting home.',
     eyebrow: 'For communities & organisations',
     problem:

@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { campaigns, type CampaignSlug } from '@/content/site';
+import { campaigns, faq, type CampaignSlug } from '@/content/site';
 import { PageHero, Capabilities, Process, Proof, FAQ } from '@/components/sections';
 import { LeadForm } from '@/components/lead-form';
 import { WhatsApp } from '@/components/whatsapp';
 import { pageMetadata } from '@/lib/metadata';
 import { pageHeroes, type HeroRoute } from '@/content/heroes';
+import { PageStructuredData } from '@/components/structured-data';
 export const dynamicParams = false;
 export function generateStaticParams() {
   return Object.keys(campaigns).map((slug) => ({ slug }));
@@ -13,7 +14,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const c = campaigns[slug as CampaignSlug];
-  return c ? pageMetadata(c.title, c.benefit, `/landing/${slug}`) : {};
+  return c ? pageMetadata(c.seoTitle, c.seoDescription, `/landing/${slug}`) : {};
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -22,6 +23,17 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const hero = pageHeroes[`/landing/${slug}` as HeroRoute];
   return (
     <main id="main" data-landing>
+      <PageStructuredData
+        title={c.title}
+        description={c.benefit}
+        path={`/landing/${slug}`}
+        kind="Service"
+        breadcrumbs={[
+          ['Home', '/'],
+          [c.eyebrow, `/landing/${slug}`],
+        ]}
+        faq={[[c.question, c.answer], ...faq]}
+      />
       <div className="wrap focus-header">
         <Link className="brand" href="/">
           LegacyHub<small>DIGITAL HERITAGE</small>
@@ -29,6 +41,15 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <span className="small">Your story, thoughtfully preserved.</span>
       </div>
       <PageHero {...hero} />
+      <section className="section wrap section-intro">
+        <div>
+          <p className="eyebrow">Why preserve this history</p>
+          <h2>{c.problem}</h2>
+        </div>
+        <p>
+          {c.benefit} <Link href="/services">Explore the digital archive services available</Link>.
+        </p>
+      </section>
       <Capabilities />
       <Proof />
       <Process />
