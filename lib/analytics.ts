@@ -36,7 +36,16 @@ export function track(event: EventName) {
         .map(([key, value]) => [key.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`), value]),
     ),
   };
-  if (consent.analytics && process.env.NEXT_PUBLIC_GA_ID) window.gtag?.('event', event, clean);
+  if (consent.analytics && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) {
+    // Keep the existing internal event for continuity, then add GA4's standard lead events only
+    // after the CRM has confirmed the submission.
+    window.gtag?.('event', event, clean);
+    if (event === 'lead_form_submitted' || event === 'lead_magnet_success') {
+      window.gtag?.('event', 'form_submit', clean);
+      window.gtag?.('event', 'generate_lead', clean);
+      window.gtag?.('event', 'lead', clean);
+    }
+  }
   if (consent.marketing && process.env.NEXT_PUBLIC_META_PIXEL_ID) {
     if (event === 'page_view') window.fbq?.('track', 'PageView');
     else if (event === 'lead_magnet_view')
@@ -54,7 +63,7 @@ export function track(event: EventName) {
 }
 export function initAnalytics() {
   const c = readConsent();
-  const ga = process.env.NEXT_PUBLIC_GA_ID;
+  const ga = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   const meta = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   if (c.analytics && ga && /^G-[A-Z0-9]+$/.test(ga) && !document.getElementById('lhd-ga')) {
     window.dataLayer = window.dataLayer || [];

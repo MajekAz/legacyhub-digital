@@ -77,7 +77,7 @@ The image card was visually inspected. Website browser interaction/visual access
 
 ## 16. Environment variables
 
-`.env.example` contains GOOGLE_CRM_WEBAPP_URL, GOOGLE_CRM_SHARED_SECRET, LEGACYHUB_LEADS_EMAIL, NEXT_PUBLIC_BUSINESS_WHATSAPP, NEXT_PUBLIC_GA_ID and NEXT_PUBLIC_META_PIXEL_ID. No real secrets are present. Script Properties are listed separately in the CRM setup guide. Production CRM URL and secret are validated at request time; missing configuration fails closed while allowing builds.
+`.env.example` contains GOOGLE_CRM_WEBAPP_URL, GOOGLE_CRM_SHARED_SECRET, LEGACYHUB_LEADS_EMAIL, NEXT_PUBLIC_BUSINESS_WHATSAPP, NEXT_PUBLIC_GA_MEASUREMENT_ID and NEXT_PUBLIC_META_PIXEL_ID. No real secrets are present. Script Properties are listed separately in the CRM setup guide. Production CRM URL and secret are validated at request time; missing configuration fails closed while allowing builds.
 
 ## 17. Workspace manual setup
 

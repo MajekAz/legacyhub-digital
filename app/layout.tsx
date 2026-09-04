@@ -6,12 +6,22 @@ import { StructuredData } from '@/components/structured-data';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://legacyhubdigital.com'),
+
+  // existing metadata...
+
+  verification: {
+    google: '91YejfQNdcqLH4xbMkaoJDemXQvfKI0vAhicbMUYe_0',
+  },
+  
   title: {
     default: 'LegacyHub Digital Heritage | Digital Legacy Archives',
     template: '%s | LegacyHub',
   },
   description:
     'Digital Legacy Archives for Families, Leaders and Organisations. Preserve a Life. Protect a Story. Connect Generations.',
+  verification: {
+    google: '91YejfQNdcqLH4xbMkaoJDemXQvfKI0vAhicbMUYe_0',
+  },
   alternates: { canonical: '/' },
   twitter: {
     card: 'summary_large_image',
