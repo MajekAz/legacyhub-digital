@@ -19,7 +19,7 @@ Set these variables in the new application, never in public source:
 | GOOGLE_CRM_SHARED_SECRET      | Server only; ≥32 characters, matches Script Properties                                          |
 | LEGACYHUB_LEADS_EMAIL         | Optional server-side deployment reference; actual notifications configured in Script Properties |
 | NEXT_PUBLIC_BUSINESS_WHATSAPP | Public build-time international number; blank/invalid hides CTA                                 |
-| NEXT_PUBLIC_GA_ID             | Public build-time GA4 G- ID; blank disables GA                                                  |
+| NEXT_PUBLIC_GA_MEASUREMENT_ID | Public build-time GA4 Measurement ID; use `G-N6GTRE53WB` for production, blank disables GA       |
 | NEXT_PUBLIC_META_PIXEL_ID     | Public build-time numeric ID; blank disables Meta                                               |
 
 Never copy `.env.local` into a public build artefact. Rebuild after public variable changes.
