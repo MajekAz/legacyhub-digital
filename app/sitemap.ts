@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/book-consultation',
     '/privacy',
     '/terms',
+    '/resources',
     '/resources/family-legacy-checklist',
     ...Object.keys(campaigns).map((s) => `/landing/${s}`),
   ].map((path) => ({

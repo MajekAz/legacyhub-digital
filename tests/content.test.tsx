@@ -10,6 +10,8 @@ import CaseStudy from '@/app/case-studies/baba-muyi/page';
 import Privacy from '@/app/privacy/page';
 import Terms from '@/app/terms/page';
 import { pageMetadata } from '@/lib/metadata';
+import { StructuredData, PageStructuredData } from '@/components/structured-data';
+import Resources from '@/app/resources/page';
 import { pageHeroes } from '@/content/heroes';
 import { familyLegacyChecklist } from '@/content/lead-magnets';
 it('renders every consultation field and accessible consent', () => {
@@ -57,10 +59,11 @@ it('homepage contains primary positioning, proof, packages and FAQs', () => {
     expect(html).toContain(copy);
   expect(html).not.toContain('wa.me');
 });
-it('links the checklist resource from desktop, mobile and footer navigation', () => {
+it('links the resources hub from desktop, mobile and footer navigation', () => {
   const layout = readFileSync('app/layout.tsx', 'utf8');
   const resourcePath = '/resources/family-legacy-checklist';
-  expect(layout.match(new RegExp(resourcePath, 'g'))).toHaveLength(3);
+  expect(layout.match(new RegExp('href="/resources"', 'g'))).toHaveLength(3);
+  expect(layout.match(new RegExp(resourcePath, 'g'))).toHaveLength(1);
   expect(layout.indexOf('Our Work')).toBeLessThan(layout.indexOf('Resources'));
   expect(layout.indexOf('Resources')).toBeLessThan(layout.indexOf('About'));
   expect(layout).toContain('Free Family Legacy Guide');
@@ -100,12 +103,40 @@ it('legal drafts transparently disclose review status', () => {
   for (const Page of [Privacy, Terms])
     expect(renderToStaticMarkup(<Page />)).toContain('Pre-launch review draft');
 });
-it('page metadata has a page-specific canonical and clears inherited images', () => {
+it('page metadata has a page-specific canonical and complete social images', () => {
   expect(pageMetadata('Family', 'Description', '/landing/family-legacy')).toMatchObject({
     alternates: { canonical: '/landing/family-legacy' },
-    openGraph: { title: 'Family', images: [] },
-    twitter: { images: [] },
+    openGraph: { title: 'Family', images: ['/og.png'] },
+    twitter: { card: 'summary_large_image', images: ['/og.png'] },
   });
+});
+it('publishes a useful resources hub with contextual internal links', () => {
+  const html = renderToStaticMarkup(<Resources />);
+  expect(html).toContain('<h1>Practical guidance for preserving your family story.</h1>');
+  for (const path of ['/resources/family-legacy-checklist', '/services', '/how-it-works', '/book-consultation'])
+    expect(html).toContain(`href="${path}"`);
+});
+it('emits valid, factual organization and page structured data', () => {
+  for (const html of [
+    renderToStaticMarkup(<StructuredData />),
+    renderToStaticMarkup(<PageStructuredData title="Services" description="Description" path="/services" kind="Service" breadcrumbs={[["Home", "/"], ["Services", "/services"]]} faq={[["Visible question?", "Visible answer."]]} />),
+  ]) {
+    const json = html.match(/<script type="application\/ld\+json">(.*)<\/script>/)?.[1];
+    expect(() => JSON.parse(json || '')).not.toThrow();
+    expect(html).not.toContain('streetAddress');
+    expect(html).not.toContain('aggregateRating');
+  }
+});
+it('gives every campaign unique search metadata and substantive page copy', () => {
+  expect(new Set(Object.values(campaigns).map(c => c.seoTitle)).size).toBe(5);
+  for (const campaign of Object.values(campaigns)) {
+    expect(campaign.seoTitle.length).toBeLessThanOrEqual(45);
+    expect(campaign.seoDescription.length).toBeGreaterThan(100);
+    expect(campaign.seoDescription.length).toBeLessThanOrEqual(165);
+  }
+  const source = readFileSync('app/landing/[slug]/page.tsx', 'utf8');
+  expect(source).toContain('{c.problem}');
+  expect(source).toContain('{c.benefit}');
 });
 it('defines the checklist funnel with the approved production PDF', () => {
   expect(familyLegacyChecklist.landingPath).toBe('/resources/family-legacy-checklist');

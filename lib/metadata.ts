@@ -10,8 +10,8 @@ export function pageMetadata(title: string, description: string, path: string): 
       url: path,
       type: 'website',
       siteName: 'LegacyHub Digital Heritage',
-      images: [],
+      images: ['/og.png'],
     },
-    twitter: { card: 'summary', title, description, images: [] },
+    twitter: { card: 'summary_large_image', title, description, images: ['/og.png'] },
   };
 }

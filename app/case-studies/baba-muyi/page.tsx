@@ -1,14 +1,25 @@
 import { PageHero, Capabilities, ConsultationCTA } from '@/components/sections';
 import { pageMetadata } from '@/lib/metadata';
 import { pageHeroes } from '@/content/heroes';
+import { PageStructuredData } from '@/components/structured-data';
 export const metadata = pageMetadata(
-  'Baba Muyi flagship case study',
-  'Explore the Tioluwalase Majekodunmi Family Archive as an independent flagship example of digital family heritage.',
+  'Baba Muyi Digital Family Archive Case Study',
+  'Explore the Tioluwalase Majekodunmi Family Archive, an independent example of biography, photographs and memories preserved digitally.',
   '/case-studies/baba-muyi',
 );
 export default function Page() {
   return (
     <main id="main">
+      <PageStructuredData
+        title="Baba Muyi Digital Family Archive Case Study"
+        description="An independent digital family heritage archive combining biography, photographs, memories and documentary records."
+        path="/case-studies/baba-muyi"
+        breadcrumbs={[
+          ['Home', '/'],
+          ['Case Studies', '/case-studies'],
+          ['Baba Muyi', '/case-studies/baba-muyi'],
+        ]}
+      />
       <PageHero {...pageHeroes['/case-studies/baba-muyi']} />
       <section className="section wrap split">
         <div>

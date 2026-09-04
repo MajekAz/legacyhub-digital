@@ -3,10 +3,11 @@ import { PageHero } from '@/components/sections';
 import { LeadMagnetForm } from '@/components/lead-magnet-form';
 import { familyLegacyChecklist } from '@/content/lead-magnets';
 import { pageMetadata } from '@/lib/metadata';
+import { PageStructuredData } from '@/components/structured-data';
 
 export const metadata = pageMetadata(
-  'Free Family Legacy Preservation Checklist',
-  'A practical checklist covering 25 photographs, documents, memories and family-history details worth identifying and preserving.',
+  'Free Family Legacy Preservation Guide',
+  'Download 25 practical steps for preserving family photographs, documents, memories and life stories before their context is lost.',
   familyLegacyChecklist.landingPath,
 );
 
@@ -41,6 +42,16 @@ const benefits = [
 export default function Page() {
   return (
     <main id="main" data-funnel>
+      <PageStructuredData
+        title="Free Family Legacy Preservation Guide"
+        description="A practical guide to identifying and preserving family photographs, documents, memories and life stories."
+        path={familyLegacyChecklist.landingPath}
+        breadcrumbs={[
+          ['Home', '/'],
+          ['Resources', '/resources'],
+          ['Family Legacy Guide', familyLegacyChecklist.landingPath],
+        ]}
+      />
       <div className="wrap focus-header">
         <Link className="brand" href="/" aria-label="LegacyHub Digital Heritage home">
           LegacyHub<small>Digital Heritage</small>
@@ -57,8 +68,8 @@ export default function Page() {
           </div>
           <div>
             <p>
-              It is often scattered across phones, photo albums, drawers, old documents,
-              WhatsApp messages and relatives&apos; memories.
+              It is often scattered across phones, photo albums, drawers, old documents, WhatsApp
+              messages and relatives&apos; memories.
             </p>
             <p>
               Audio and video recordings, certificates and letters may hold just as much context.
