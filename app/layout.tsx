@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   verification: {
     google: '91YejfQNdcqLH4xbMkaoJDemXQvfKI0vAhicbMUYe_0',
   },
-  
   title: {
     default: 'LegacyHub Digital Heritage | Digital Legacy Archives',
     template: '%s | LegacyHub',
