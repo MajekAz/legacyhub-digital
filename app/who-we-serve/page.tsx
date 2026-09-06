@@ -1,18 +1,23 @@
-import { PageHero, AudienceCards, ConsultationCTA } from '@/components/sections';
+import {
+  PageHero,
+  AudienceWebsiteCards,
+  OwnershipPanel,
+  ConsultationCTA,
+} from '@/components/sections';
 import { pageMetadata } from '@/lib/metadata';
 import { pageHeroes } from '@/content/heroes';
 import { PageStructuredData } from '@/components/structured-data';
 export const metadata = pageMetadata(
-  'Family, Leadership and Organisation Archives',
-  'Digital heritage archives for UK families, diaspora communities, leaders, veterans, founders and organisations preserving their history.',
+  'Legacy Websites for Families, Leaders and Organisations',
+  'Done-for-you personal, family, veteran, leadership and organisational heritage websites on your own domain and hosting.',
   '/who-we-serve',
 );
 export default function Page() {
   return (
     <main id="main">
       <PageStructuredData
-        title="Family, Leadership and Organisation Archives"
-        description="Digital heritage archives for families, leaders, veterans, founders and organisations."
+        title="Legacy Websites for Families, Leaders and Organisations"
+        description="Done-for-you digital heritage websites for families, individuals, leaders and organisations."
         path="/who-we-serve"
         breadcrumbs={[
           ['Home', '/'],
@@ -23,16 +28,17 @@ export default function Page() {
       <section className="section wrap" id="audiences">
         <div className="section-intro">
           <div>
-            <p className="eyebrow">Archives for every kind of legacy</p>
-            <h2>Family history, public service and shared heritage.</h2>
+            <p className="eyebrow">A website shaped around each story</p>
+            <h2>Personal histories, family connections and shared heritage.</h2>
           </div>
           <p>
-            Each archive reflects the people, permissions and cultural context behind it, whether
-            the story belongs to one person, a family or an organisation.
+            Each project results in a complete website deployed to the client’s hosting account and
+            connected to their custom domain.
           </p>
         </div>
-        <AudienceCards />
+        <AudienceWebsiteCards />
       </section>
+      <OwnershipPanel />
       <ConsultationCTA />
     </main>
   );

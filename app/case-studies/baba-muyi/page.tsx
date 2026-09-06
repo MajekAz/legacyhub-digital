@@ -56,6 +56,43 @@ export default function Page() {
           </p>
         </div>
       </section>
+      <section className="section wrap">
+        <div className="section-intro">
+          <div>
+            <p className="eyebrow">Before, process and outcome</p>
+            <h2>How scattered material became a connected website.</h2>
+          </div>
+          <p>
+            This example is described only through the approved public archive and its existing
+            presentation.
+          </p>
+        </div>
+        <div className="transformation-grid">
+          <article>
+            <span>01</span>
+            <h3>Before</h3>
+            <p>
+              Photographs, memories, documents and stories held across different parts of family
+              life.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>LegacyHub process</h3>
+            <p>
+              Organisation, story development, archive architecture, website design and development.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>After</h3>
+            <p>
+              A structured digital heritage website presented independently on its own custom
+              domain.
+            </p>
+          </article>
+        </div>
+      </section>
       <section className="section case-documentary">
         <div className="wrap">
           <div className="section-intro">

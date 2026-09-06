@@ -28,6 +28,32 @@ export const audiences = [
     'Organise the history of associations, faith communities, institutions and businesses.',
   ],
 ];
+export const websiteDeliverables = [
+  [
+    'Content Planning & Organisation',
+    'We help gather, structure and organise your stories, photographs, documents and other approved materials.',
+  ],
+  [
+    'Biography & Story Development',
+    'We help shape your supplied memories, interviews and records into clear, meaningful stories.',
+  ],
+  [
+    'Photo & Document Preparation',
+    'We organise and prepare suitable photographs and documents. Specialist digitisation is quoted separately where required.',
+  ],
+  [
+    'Website Design & Development',
+    'We design and build a modern, responsive digital heritage website around your story and archive.',
+  ],
+  [
+    'Your Domain & Hosting',
+    'Your website is connected to your custom domain and deployed to your own hosting account.',
+  ],
+  [
+    'Launch, Handover & Optional Care',
+    'We launch the website, provide handover guidance and can provide optional ongoing archive care and support.',
+  ],
+] as const;
 export const serviceContent = [
   [
     'Digital Legacy Archives',
@@ -72,52 +98,113 @@ export const serviceContent = [
 ];
 export const packages = [
   [
-    'Legacy Starter',
-    'A focused beginning',
-    'For a concise life story and a carefully selected collection of photographs and memories.',
+    'Starter Legacy Website',
+    'For a focused personal or family story',
+    'A smaller digital heritage website built around a concise story and carefully selected photographs and memories.',
   ],
   [
-    'Family Heritage Archive',
-    'A shared family collection',
-    'For a richer family narrative, organised photographs, documents and contributions.',
+    'Complete Legacy Website',
+    'For a fuller digital heritage archive',
+    'A broader website combining biography, galleries, timelines, documents and approved family contributions.',
   ],
   [
-    'Complete Digital Legacy Archive',
-    'A fuller portrait of a life',
-    'For an extensive biography, timeline and connected collection of approved multimedia.',
+    'Bespoke Heritage Project',
+    'For complex or substantial histories',
+    'A tailored heritage website for large families, veterans, leaders, communities and organisations.',
   ],
-  [
-    'Documentary & Heritage Project',
-    'Stories in words, sound and film',
-    'For projects with oral history or documentary ambitions, subject to a separately agreed production scope.',
-  ],
-];
+] as const;
 export const processSteps = [
   [
-    'Consultation',
-    'We listen to the story, understand your priorities and discuss what a meaningful archive could include.',
+    'Discovery',
+    'We learn about the person, family or organisation and agree the purpose and scope.',
   ],
   [
-    'Collection',
-    'Photographs, documents, recordings and written memories are gathered through an agreed, secure process.',
+    'Content Collection',
+    'You provide approved stories, photographs, documents and other material through an agreed process.',
   ],
   [
-    'Curation',
-    'We organise the material, identify gaps and shape the narrative with permissions and context in mind.',
+    'Organisation',
+    'We structure the supplied material into a logical digital archive and identify any gaps.',
   ],
   [
-    'Design',
-    'The archive is designed as a coherent, accessible experience around the story and approved material.',
+    'Story Development',
+    'We help turn supplied information into clear biographies, captions, timelines and stories.',
   ],
   [
-    'Review',
-    'You remain involved throughout. Nothing is published until the agreed review and approval process is complete.',
+    'Design & Build',
+    'We design and build the complete, responsive digital heritage website around the approved story.',
   ],
   [
-    'Delivery & care',
-    'We launch on the agreed domain and document hosting, backups, access and future care.',
+    'Review & Approval',
+    'You review the website and approve its content before anything is launched.',
   ],
-];
+  [
+    'Domain, Hosting & Launch',
+    'We connect your custom domain, deploy to your hosting account and provide launch handover.',
+  ],
+] as const;
+export const journeyPhases = [
+  [
+    'Discovery & Scope',
+    'Lead the discovery conversation and define a practical scope.',
+    'Share whose story this is and what you hope the website will preserve.',
+    'An agreed project direction and scope.',
+  ],
+  [
+    'Content & Material Collection',
+    'Provide a clear collection process and guidance.',
+    'Supply approved photographs, documents, stories and recordings.',
+    'A working collection ready to organise.',
+  ],
+  [
+    'Organisation & Story Development',
+    'Structure the archive and develop biographies, captions and timelines where required.',
+    'Answer questions, add context and confirm permissions.',
+    'A coherent narrative and content structure.',
+  ],
+  [
+    'Website Design & Development',
+    'Design and build the responsive digital heritage website.',
+    'Review the emerging experience and clarify priorities.',
+    'A complete review-ready website.',
+  ],
+  [
+    'Client Review & Approval',
+    'Apply agreed revisions and prepare the approved release.',
+    'Check the story, material, names, dates and permissions.',
+    'A client-approved website ready to launch.',
+  ],
+  [
+    'Domain, Hosting & Launch',
+    'Connect the custom domain and deploy the website to the client-controlled hosting account.',
+    'Provide or create access to the chosen domain and hosting services.',
+    'An independent live digital heritage website.',
+  ],
+  [
+    'Handover & Optional Archive Care',
+    'Provide handover guidance and agree any optional support.',
+    'Retain control of the domain, hosting and approved content.',
+    'A documented handover without mandatory ongoing dependence.',
+  ],
+] as const;
+export const audienceWebsites = [
+  [
+    'Families',
+    'Create a family heritage website connecting people, places, photographs, documents and stories.',
+  ],
+  [
+    'Individuals',
+    'Preserve a personal biography, life journey, photographs, achievements and lessons.',
+  ],
+  [
+    'Veterans & Leaders',
+    'Document service history, achievements, photographs, records, interviews and legacy.',
+  ],
+  [
+    'Organisations',
+    'Create an institutional heritage website covering history, milestones, leadership, documents and oral histories.',
+  ],
+] as const;
 export const faq = [
   [
     'Do we need everything organised first?',

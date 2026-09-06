@@ -1,7 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
-import { archiveCapabilities, audiences, faq, packages, processSteps } from '@/content/site';
+import {
+  archiveCapabilities,
+  audiences,
+  audienceWebsites,
+  faq,
+  journeyPhases,
+  packages,
+  processSteps,
+  websiteDeliverables,
+} from '@/content/site';
 import type { HeroAction, HeroContent } from '@/content/heroes';
 import { WhatsApp } from './whatsapp';
 
@@ -40,6 +49,8 @@ export function PageHero({
   title,
   description,
   trustLine,
+  trustItems,
+  ownershipStatement,
   backgroundImage,
   backgroundPosition = 'center',
   imageBrightness = 1.06,
@@ -78,6 +89,14 @@ export function PageHero({
             <HeroLink action={primaryCta} />
             {secondaryCta && <HeroLink action={secondaryCta} secondary />}
           </div>
+          {trustItems && (
+            <ul className="page-hero-trust-items" aria-label="Service commitments">
+              {trustItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          )}
+          {ownershipStatement && <p className="page-hero-ownership">{ownershipStatement}</p>}
         </div>
         <a
           className="page-hero-credit"
@@ -142,12 +161,12 @@ export function Process() {
     <section className="section wrap" id="process">
       <div className="section-intro">
         <div>
-          <p className="eyebrow">A careful, guided process</p>
-          <h2>From the first conversation to a finished archive.</h2>
+          <p className="eyebrow">How your website is created</p>
+          <h2>From discovery to your own domain.</h2>
         </div>
         <p>
-          You do not need to arrive with everything organised. We help establish what exists, what
-          is missing and what your family or organisation wants the archive to achieve.
+          You provide the approved stories and material. LegacyHub manages the planning,
+          organisation, story development, design, build and launch with you.
         </p>
       </div>
       <ol className="process-list">
@@ -165,6 +184,109 @@ export function Process() {
   );
 }
 
+export function WebsiteDeliverables() {
+  return (
+    <section className="section wrap" id="what-you-get">
+      <div className="section-intro">
+        <div>
+          <p className="eyebrow">What you get</p>
+          <h2>A complete digital heritage website, built for you.</h2>
+        </div>
+        <p>
+          LegacyHub takes your project from scattered memories to a complete, professionally built
+          digital heritage website.
+        </p>
+      </div>
+      <div className="deliverables-grid">
+        {websiteDeliverables.map(([title, copy], index) => (
+          <article key={title}>
+            <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+      <p className="deliverables-summary">
+        You do not need to build the website yourself. LegacyHub manages the project with you from
+        discovery to launch.
+      </p>
+    </section>
+  );
+}
+
+export function OwnershipPanel() {
+  return (
+    <aside className="ownership-panel wrap" aria-label="Website ownership">
+      <div>
+        <p className="eyebrow">Your website, your ownership</p>
+        <h2>Your domain. Your hosting. You own it.</h2>
+      </div>
+      <ul>
+        <li>Your custom domain remains under your control.</li>
+        <li>The website is deployed to your hosting account.</li>
+        <li>Your approved content and archive materials remain yours.</li>
+        <li>You receive project handover at completion.</li>
+        <li>Ongoing care is optional, with no promise of perpetual hosting.</li>
+      </ul>
+    </aside>
+  );
+}
+
+export function DetailedJourney() {
+  return (
+    <section className="section wrap" id="process">
+      <div className="section-intro">
+        <div>
+          <p className="eyebrow">The complete client journey</p>
+          <h2>Seven clear phases from idea to launch.</h2>
+        </div>
+        <p>
+          At every phase, you can see what LegacyHub does, what you provide and what comes next.
+        </p>
+      </div>
+      <ol className="journey-list">
+        {journeyPhases.map(([title, legacyHub, client, output], index) => (
+          <li key={title}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <p className="eyebrow">Phase {index + 1}</p>
+              <h3>{title}</h3>
+              <dl>
+                <div>
+                  <dt>LegacyHub</dt>
+                  <dd>{legacyHub}</dd>
+                </div>
+                <div>
+                  <dt>You provide</dt>
+                  <dd>{client}</dd>
+                </div>
+                <div>
+                  <dt>Output</dt>
+                  <dd>{output}</dd>
+                </div>
+              </dl>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+export function AudienceWebsiteCards() {
+  return (
+    <div className="audience-grid">
+      {audienceWebsites.map(([title, copy], index) => (
+        <article className="audience-card" key={title}>
+          <span aria-hidden="true">0{index + 1}</span>
+          <h3>{title}</h3>
+          <p>{copy}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 export function Proof() {
   return (
     <section className="section case-study-section" id="featured-archive">
@@ -175,13 +297,11 @@ export function Proof() {
         </div>
         <div>
           <p className="case-kicker">The Tioluwalase Majekodunmi Family Archive</p>
-          <h2>
-            Biography, photographs, memories and lessons brought together in one family record.
-          </h2>
+          <h2>From scattered family material to an independent heritage website.</h2>
           <p>
-            The Baba Muyi archive shows how one life can be preserved through a long-form biography,
-            timeline, family recollections, documents and documentary material. It is an independent
-            family archive and our flagship case study.
+            Photographs, memories, documents and stories were organised through biography and
+            archive structure, then brought together as a digital heritage website on its own custom
+            domain. It is an independent family archive and our flagship case study.
           </p>
           <div className="actions">
             <Link
@@ -270,10 +390,17 @@ export function StudioIntroduction() {
 
 export function PackageCards() {
   const packageIncludes = [
-    ['Concise life story', 'Selected photographs', 'Focused archive structure'],
-    ['Family narrative', 'Photographs and documents', 'Family review process'],
-    ['Extended biography', 'Timeline and multimedia', 'Detailed curation and review'],
-    ['Oral-history planning', 'Documentary production scope', 'Bespoke heritage structure'],
+    ['Custom website design and build', 'Client domain and hosting deployment', 'Launch handover'],
+    [
+      'Extended biography and galleries',
+      'Timeline and document sections',
+      'Client review and handover',
+    ],
+    [
+      'Tailored archive architecture',
+      'Complex editorial and media scope',
+      'Organisational review and handover',
+    ],
   ] as const;
 
   return (
@@ -303,8 +430,8 @@ export function PackageCards() {
         ))}
       </div>
       <p className="small section-footnote">
-        Pricing depends on archive size, research, media volume, design requirements and production
-        complexity. Every project begins with a consultation.
+        Domain registration, hosting, specialist digitisation, documentary production and ongoing
+        support are confirmed as included, optional or separately quoted in the written scope.
       </p>
     </>
   );
@@ -355,7 +482,7 @@ export function ConsultationCTA() {
               href="/book-consultation"
               data-event="consultation_cta_click"
             >
-              Start Your Legacy Project
+              Start Your Legacy Website
             </Link>
             <WhatsApp />
           </div>

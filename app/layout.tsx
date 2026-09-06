@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://legacyhubdigital.com'),
 
   title: {
-    default: 'LegacyHub Digital Heritage | Digital Legacy Archives',
+    default: 'Done-for-You Digital Heritage Websites | LegacyHub',
     template: '%s | LegacyHub',
   },
 
   description:
-    'Digital Legacy Archives for Families, Leaders and Organisations. Preserve a Life. Protect a Story. Connect Generations.',
+    'Complete, done-for-you digital heritage websites for families, individuals, leaders and organisations, launched on each client’s domain and hosting.',
 
   verification: {
     google: '91YejfQNdcqLH4xbMkaoJDemXQvfKI0vAhicbMUYe_0',
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'LegacyHub Digital Heritage',
-    description: 'Preserve a Life. Protect a Story. Connect Generations.',
+    title: 'Your Story. Your Website. Your Legacy.',
+    description: 'Complete, done-for-you digital heritage websites on your domain and hosting.',
     images: ['/og.png'],
   },
 
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_GB',
     siteName: 'LegacyHub Digital Heritage',
-    title: 'LegacyHub Digital Heritage',
-    description: 'Preserve a Life. Protect a Story. Connect Generations.',
+    title: 'Your Story. Your Website. Your Legacy.',
+    description: 'Complete, done-for-you digital heritage websites on your domain and hosting.',
     images: [
       {
         url: '/og.png',
@@ -63,11 +63,7 @@ export default function RootLayout({
 
         <header className="site-header">
           <div className="wrap nav">
-            <Link
-              className="brand"
-              href="/"
-              aria-label="LegacyHub Digital Heritage home"
-            >
+            <Link className="brand" href="/" aria-label="LegacyHub Digital Heritage home">
               <span className="brand-mark" aria-hidden="true">
                 LH
               </span>
@@ -86,11 +82,8 @@ export default function RootLayout({
               <Link href="/about">About</Link>
               <Link href="/contact">Contact</Link>
 
-              <Link
-                className="button small-button"
-                href="/book-consultation"
-              >
-                Start Your Legacy Project
+              <Link className="button small-button" href="/book-consultation">
+                Start Your Legacy Website
               </Link>
             </nav>
 
@@ -108,7 +101,7 @@ export default function RootLayout({
                 <Link href="/contact">Contact</Link>
 
                 <Link className="button" href="/book-consultation">
-                  Start Your Legacy Project
+                  Start Your Legacy Website
                 </Link>
               </nav>
             </details>
@@ -125,9 +118,8 @@ export default function RootLayout({
               </Link>
 
               <p>
-                We preserve biographies, photographs, memories and records in
-                thoughtful digital archives for families, leaders and
-                organisations.
+                We preserve biographies, photographs, memories and records in thoughtful digital
+                archives for families, leaders and organisations.
               </p>
             </div>
 
@@ -140,9 +132,7 @@ export default function RootLayout({
               <Link href="/how-it-works">How It Works</Link>
               <Link href="/case-studies">Our Work</Link>
               <Link href="/resources">Resources</Link>
-              <Link href="/resources/family-legacy-checklist">
-                Free Family Legacy Guide
-              </Link>
+              <Link href="/resources/family-legacy-checklist">Free Family Legacy Guide</Link>
               <Link href="/about">About</Link>
             </div>
 
@@ -157,12 +147,10 @@ export default function RootLayout({
           </div>
 
           <div className="wrap footer-bottom">
-            <span>
-              © {new Date().getFullYear()} LegacyHub Digital Heritage
-            </span>
+            <span>© {new Date().getFullYear()} LegacyHub Digital Heritage</span>
 
             <span>
-              Digital Legacy Archives for Families, Leaders and Organisations.
+              Done-for-you digital heritage websites for families, leaders and organisations.
             </span>
           </div>
         </footer>

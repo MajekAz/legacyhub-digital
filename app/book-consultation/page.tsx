@@ -25,7 +25,11 @@ export default function Page() {
       <section className="section wrap form-page" id="consultation-form">
         <aside>
           <p className="eyebrow">What happens next</p>
-          <h2>A conversation, not a commitment.</h2>
+          <h2>Begin with the story and material you have.</h2>
+          <p>
+            Tell us whose story you want to preserve and what materials you already have. We will
+            discuss the most appropriate done-for-you digital heritage website for your project.
+          </p>
           <ol>
             <li>
               <strong>We read your enquiry.</strong>

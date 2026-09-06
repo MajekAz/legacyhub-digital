@@ -28,6 +28,11 @@ export default function Page() {
           selling a self-service SaaS subscription.
         </p>
         <p>
+          We plan, organise, shape, design and build each client’s digital heritage website, then
+          deploy it to their own hosting account and connect their custom domain. The client retains
+          control of the domain, hosting and approved content.
+        </p>
+        <p>
           Based in Glasgow, Scotland, we work with families and organisations across the United
           Kingdom and discuss remote collaboration for projects further afield.
         </p>

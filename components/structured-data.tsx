@@ -17,7 +17,7 @@ export function StructuredData() {
         name: 'LegacyHub Digital Heritage',
         url: origin,
         description:
-          'Digital legacy archive and heritage preservation service for families, leaders and organisations.',
+          'Done-for-you digital heritage website service for families, individuals, leaders and organisations.',
         areaServed: [
           { '@type': 'Country', name: 'United Kingdom' },
           { '@type': 'Place', name: 'Glasgow, Scotland' },
@@ -33,10 +33,11 @@ export function StructuredData() {
       },
       {
         '@type': 'Service',
-        name: 'Digital Legacy Archive Service',
-        serviceType: 'Done-for-you digital heritage archives',
+        name: 'Done-for-You Digital Heritage Website Service',
+        serviceType: 'Digital heritage website planning, design, development and launch',
         url: 'https://legacyhubdigital.com/services',
-        description: 'Digital Legacy Archives for Families, Leaders and Organisations.',
+        description:
+          'Complete digital heritage websites deployed to each client’s hosting account and custom domain.',
         provider: { '@id': `${origin}/#organization` },
         areaServed: { '@type': 'Country', name: 'United Kingdom' },
       },
@@ -45,7 +46,8 @@ export function StructuredData() {
         '@id': `${origin}/#homepage`,
         url: origin,
         name: 'LegacyHub Digital Heritage',
-        description: 'Digital Legacy Archives for Families, Leaders and Organisations.',
+        description:
+          'Complete, done-for-you digital heritage websites for families, individuals, leaders and organisations.',
         isPartOf: { '@id': `${origin}/#website` },
         about: { '@id': `${origin}/#organization` },
         inLanguage: 'en-GB',
