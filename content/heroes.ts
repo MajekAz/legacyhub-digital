@@ -10,6 +10,8 @@ export type HeroContent = {
   title: string;
   description: string;
   trustLine?: string;
+  trustItems?: readonly string[];
+  ownershipStatement?: string;
   backgroundImage: string;
   backgroundPosition?: string;
   imageBrightness?: number;
@@ -26,23 +28,29 @@ export type HeroContent = {
 
 export const pageHeroes = {
   '/': {
-    eyebrow: 'Digital heritage & legacy archives',
-    title: 'Preserve a life. Protect a story. Connect generations.',
+    eyebrow: 'Done-for-you digital heritage websites',
+    title: 'Your Story. Your Website. Your Legacy.',
     description:
-      'LegacyHub Digital Heritage creates professionally designed digital archives for families, leaders and organisations — preserving biographies, photographs, memories, documents and multimedia for future generations.',
-    trustLine: 'Thoughtfully created. Personally meaningful. Built around your story.',
+      'LegacyHub creates a complete digital heritage website for you — built around your stories, photographs, documents and memories, hosted on your own hosting account and connected to your own custom domain.',
+    trustItems: [
+      'Done for You',
+      'Your Custom Domain',
+      'Your Hosting Account',
+      'Your Content',
+      'Personalised Support',
+    ],
+    ownershipStatement: 'Your domain. Your hosting. You own it.',
     backgroundImage: '/images/archive-family-portrait.jpg',
     backgroundPosition: 'center 34%',
     imageBrightness: 1.07,
     primaryCta: {
-      label: 'Start Your Legacy Project',
+      label: 'Start Your Legacy Website',
       href: '/book-consultation',
       event: 'consultation_cta_click',
     },
     secondaryCta: {
-      label: 'View a Real Archive',
-      href: '/case-studies/baba-muyi',
-      event: 'case_study_click',
+      label: 'See How It Works',
+      href: '/how-it-works',
     },
     minHeight: '76vh',
     overlay: 0.6,
@@ -53,15 +61,15 @@ export const pageHeroes = {
   },
   '/services': {
     eyebrow: 'Our services',
-    title: 'Turn scattered records into a story that lasts.',
+    title: 'One complete heritage website, built for you.',
     description:
-      'From biography development and archive organisation to documentary material and dedicated heritage websites, every service is shaped around your collection.',
+      'We plan, organise, shape, design and build your digital heritage website, then deploy it to your own hosting account and connect your custom domain.',
     backgroundImage: '/images/heroes/services-archives.jpg',
     backgroundPosition: 'center 54%',
     imageBrightness: 1.15,
     primaryCta: { label: 'Explore Our Services', href: '#services' },
     secondaryCta: {
-      label: 'Start Your Legacy Project',
+      label: 'Start Your Legacy Website',
       href: '/book-consultation',
       event: 'consultation_cta_click',
     },
@@ -74,12 +82,12 @@ export const pageHeroes = {
     eyebrow: 'Our approach',
     title: 'Your story, shaped through a thoughtful process.',
     description:
-      'We guide you from the first conversation through collection, curation, design and delivery, with permissions and family review built into each stage.',
+      'See how we take your approved stories and materials through planning, organisation, story development, website design, review, launch and handover.',
     backgroundImage: '/images/heroes/how-it-works-reading.jpg',
     backgroundPosition: 'center 42%',
     primaryCta: { label: 'See How It Works', href: '#process' },
     secondaryCta: {
-      label: 'Book a Legacy Consultation',
+      label: 'Start Your Legacy Website',
       href: '/book-consultation',
       event: 'consultation_cta_click',
     },
@@ -92,12 +100,12 @@ export const pageHeroes = {
     eyebrow: 'Who we serve',
     title: 'Every legacy begins with people.',
     description:
-      'We work with families, leaders, veterans, founders, communities and organisations preserving the experiences that connect one generation to the next.',
+      'Complete, done-for-you heritage websites for families, individuals, leaders, veterans and organisations, deployed to each client’s own hosting and domain.',
     backgroundImage: '/images/heroes/who-we-serve-family.jpg',
     backgroundPosition: 'center 38%',
     primaryCta: { label: 'Discover Who We Help', href: '#audiences' },
     secondaryCta: {
-      label: 'Discuss Your Archive',
+      label: 'Start Your Legacy Website',
       href: '/book-consultation',
       event: 'consultation_cta_click',
     },
@@ -115,7 +123,7 @@ export const pageHeroes = {
     backgroundPosition: 'center 42%',
     primaryCta: { label: 'View Our Work', href: '#featured-archive' },
     secondaryCta: {
-      label: 'Start Your Legacy Project',
+      label: 'Start Your Legacy Website',
       href: '/book-consultation',
       event: 'consultation_cta_click',
     },
@@ -138,7 +146,7 @@ export const pageHeroes = {
       event: 'case_study_click',
     },
     secondaryCta: {
-      label: 'Start Your Legacy Project',
+      label: 'Start Your Legacy Website',
       href: '/book-consultation',
       event: 'consultation_cta_click',
     },
@@ -150,9 +158,9 @@ export const pageHeroes = {
   },
   '/packages': {
     eyebrow: 'Service packages',
-    title: 'Choose the right beginning for your legacy.',
+    title: 'Choose the right scope for your legacy website.',
     description:
-      'Four consultation-based service levels provide a starting point. Your final scope reflects the story, material and production care your archive needs.',
+      'Three consultation-based starting points for a website built around your story, material, custom domain and client-controlled hosting.',
     backgroundImage: '/images/heroes/packages-portrait.jpg',
     backgroundPosition: 'center 35%',
     primaryCta: { label: 'Compare Service Levels', href: '#packages' },
@@ -175,7 +183,7 @@ export const pageHeroes = {
     backgroundPosition: 'center 50%',
     primaryCta: { label: 'See How We Work', href: '/how-it-works' },
     secondaryCta: {
-      label: 'Start Your Legacy Project',
+      label: 'Start Your Legacy Website',
       href: '/book-consultation',
       event: 'consultation_cta_click',
     },
@@ -188,7 +196,7 @@ export const pageHeroes = {
     eyebrow: 'Contact the studio',
     title: 'Let’s begin with what you have in mind.',
     description:
-      'Ask about a family archive, organisational history, partnership or documentary project. We will respond using your preferred contact method.',
+      'Tell us whose story you want to preserve and what material you have. We will discuss the right done-for-you heritage website for your project.',
     backgroundImage: '/images/heroes/contact-family.jpg',
     backgroundPosition: 'center 28%',
     primaryCta: { label: 'Send an Enquiry', href: '#contact-form' },
@@ -206,7 +214,7 @@ export const pageHeroes = {
     eyebrow: 'Start your legacy project',
     title: 'Tell us about the story you want to preserve.',
     description:
-      'You do not need a finished plan or an organised collection. A few details will help us understand the right place to begin.',
+      'You do not need a finished plan, domain, hosting account or organised collection. Tell us about the story and material you want to preserve.',
     backgroundImage: '/images/heroes/book-consultation.jpg',
     backgroundPosition: 'center 34%',
     primaryCta: {

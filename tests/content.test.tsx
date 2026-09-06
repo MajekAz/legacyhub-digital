@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { it, expect } from 'vitest';
-import { LeadForm } from '@/components/lead-form';
+import { LeadForm, mapProjectDetails } from '@/components/lead-form';
 import { campaigns } from '@/content/site';
 import Home from '@/app/page';
 import CaseStudy from '@/app/case-studies/baba-muyi/page';
@@ -24,9 +24,10 @@ it('renders every consultation field and accessible consent', () => {
     'legacySubjectType',
     'subjectName',
     'livingStatus',
-    'materialsAvailable',
     'photoCountRange',
-    'serviceInterest',
+    'projectMaterials',
+    'projectType',
+    'domainHostingStatus',
     'preferredContactMethod',
     'message',
     'consent',
@@ -34,18 +35,41 @@ it('renders every consultation field and accessible consent', () => {
   ])
     expect(html).toContain(`name="${name}"`);
   expect(html).toContain('aria-live="polite"');
-  expect(html).toContain('Book My Legacy Consultation');
+  expect(html).toContain('Start Your Legacy Website');
+  expect(html).toContain('Personal Legacy Website');
+  expect(html).toContain('I have neither');
 });
 it('contact has an enquiry category', () => {
-  expect(renderToStaticMarkup(<LeadForm type="contact" />)).toContain('Partnership');
+  const html = renderToStaticMarkup(<LeadForm type="contact" />);
+  expect(html).toContain('Partnership');
+  expect(html).toContain('Organisation Heritage Website');
+  expect(html).toContain('Do you already have a domain or hosting account?');
+});
+it('maps new consultation choices into the existing CRM contract', () => {
+  expect(
+    mapProjectDetails(
+      'Organisation Heritage Website',
+      ['Documents', 'Existing Website', 'Physical Archive'],
+      'I have a domain only',
+      'A centenary project.',
+    ),
+  ).toEqual({
+    serviceInterest: 'Documentary & Heritage Project',
+    materialsAvailable: ['Documents', 'Other'],
+    message:
+      'A centenary project.\n\nProject type: Organisation Heritage Website\nMaterials selected: Documents, Existing Website, Physical Archive\nDomain / hosting status: I have a domain only',
+  });
 });
 it('homepage contains primary positioning, proof, packages and FAQs', () => {
   const html = renderToStaticMarkup(<Home />);
   for (const copy of [
-    'Preserve a life.',
-    'Connect generations.',
-    'Start Your Legacy Project',
-    'Thoughtfully created. Personally meaningful.',
+    'Your Story. Your Website. Your Legacy.',
+    'Start Your Legacy Website',
+    'Your Custom Domain',
+    'Your domain. Your hosting. You own it.',
+    'What you get',
+    'Website Design &amp; Development',
+    'You do not need to build the website yourself.',
     'Family trees &amp; relationships',
     'Nothing is published until',
     'Care is part of the work.',
@@ -113,13 +137,30 @@ it('page metadata has a page-specific canonical and complete social images', () 
 it('publishes a useful resources hub with contextual internal links', () => {
   const html = renderToStaticMarkup(<Resources />);
   expect(html).toContain('<h1>Practical guidance for preserving your family story.</h1>');
-  for (const path of ['/resources/family-legacy-checklist', '/services', '/how-it-works', '/book-consultation'])
+  for (const path of [
+    '/resources/family-legacy-checklist',
+    '/services',
+    '/how-it-works',
+    '/book-consultation',
+  ])
     expect(html).toContain(`href="${path}"`);
 });
 it('emits valid, factual organization and page structured data', () => {
   for (const html of [
     renderToStaticMarkup(<StructuredData />),
-    renderToStaticMarkup(<PageStructuredData title="Services" description="Description" path="/services" kind="Service" breadcrumbs={[["Home", "/"], ["Services", "/services"]]} faq={[["Visible question?", "Visible answer."]]} />),
+    renderToStaticMarkup(
+      <PageStructuredData
+        title="Services"
+        description="Description"
+        path="/services"
+        kind="Service"
+        breadcrumbs={[
+          ['Home', '/'],
+          ['Services', '/services'],
+        ]}
+        faq={[['Visible question?', 'Visible answer.']]}
+      />,
+    ),
   ]) {
     const json = html.match(/<script type="application\/ld\+json">(.*)<\/script>/)?.[1];
     expect(() => JSON.parse(json || '')).not.toThrow();
@@ -128,7 +169,7 @@ it('emits valid, factual organization and page structured data', () => {
   }
 });
 it('gives every campaign unique search metadata and substantive page copy', () => {
-  expect(new Set(Object.values(campaigns).map(c => c.seoTitle)).size).toBe(5);
+  expect(new Set(Object.values(campaigns).map((c) => c.seoTitle)).size).toBe(5);
   for (const campaign of Object.values(campaigns)) {
     expect(campaign.seoTitle.length).toBeLessThanOrEqual(45);
     expect(campaign.seoDescription.length).toBeGreaterThan(100);
@@ -144,9 +185,7 @@ it('defines the checklist funnel with the approved production PDF', () => {
   expect(familyLegacyChecklist.downloadPath).toBe(
     '/downloads/LegacyHub_Family_Legacy_Preservation_Guide.pdf',
   );
-  const pdf = readFileSync(
-    'public/downloads/LegacyHub_Family_Legacy_Preservation_Guide.pdf',
-  );
+  const pdf = readFileSync('public/downloads/LegacyHub_Family_Legacy_Preservation_Guide.pdf');
   expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
   expect(pdf.byteLength).toBeGreaterThan(1_000_000);
 });

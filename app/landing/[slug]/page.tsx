@@ -47,7 +47,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <h2>{c.problem}</h2>
         </div>
         <p>
-          {c.benefit} <Link href="/services">Explore the digital archive services available</Link>.
+          {c.benefit} LegacyHub manages the complete website project, then deploys it to your own
+          hosting account and connects your custom domain.{' '}
+          <Link href="/services">Explore the done-for-you website service</Link>.
         </p>
       </section>
       <Capabilities />

@@ -27,8 +27,8 @@ export default function Page() {
           <p className="eyebrow">A considered first step</p>
           <h2>Tell us enough to understand the enquiry.</h2>
           <p>
-            From our base in Glasgow, we welcome questions from families across the UK, Nigeria and
-            the African diaspora, as well as leaders, institutions and community organisations.
+            Tell us whose story you want to preserve and what materials you already have. We will
+            discuss the most appropriate done-for-you digital heritage website for your project.
           </p>
           <p className="small">
             Submitting an enquiry does not create a contract or reserve an appointment.

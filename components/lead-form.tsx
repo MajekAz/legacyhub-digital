@@ -1,17 +1,57 @@
 'use client';
 import { useRef, useState, useId } from 'react';
 import Link from 'next/link';
-import {
-  categories,
-  consentText,
-  leadSchema,
-  materials,
-  photoRanges,
-  services,
-  subjects,
-} from '@/lib/lead-schema';
+import { categories, consentText, leadSchema, photoRanges, subjects } from '@/lib/lead-schema';
 import { getAttribution } from '@/lib/attribution';
 import { track } from '@/lib/analytics';
+const projectTypes = [
+  ['Personal Legacy Website', 'Legacy Starter'],
+  ['Family Heritage Website', 'Family Heritage Archive'],
+  ['Veteran or Leader Legacy Website', 'Complete Digital Legacy Archive'],
+  ['Memorial / Tribute Website', 'Complete Digital Legacy Archive'],
+  ['Organisation Heritage Website', 'Documentary & Heritage Project'],
+  ['Bespoke Heritage Project', 'Documentary & Heritage Project'],
+  ['Not Sure Yet', 'Not sure yet'],
+] as const;
+const projectMaterials = [
+  ['Photographs', 'Photographs'],
+  ['Documents', 'Documents'],
+  ['Written Stories', 'Family stories'],
+  ['Video', 'Videos'],
+  ['Audio', 'Audio recordings'],
+  ['Family Tree Information', 'Other'],
+  ['Existing Website', 'Other'],
+  ['Physical Archive', 'Other'],
+  ['Not Sure', 'Other'],
+] as const;
+export function mapProjectDetails(
+  projectType: string,
+  selectedMaterials: string[],
+  domainHostingStatus: string,
+  message: string,
+) {
+  const serviceInterest = projectTypes.find(([label]) => label === projectType)?.[1] || '';
+  const materialsAvailable = [
+    ...new Set(
+      selectedMaterials.flatMap((label) => {
+        const value = projectMaterials.find(([name]) => name === label)?.[1];
+        return value ? [value] : [];
+      }),
+    ),
+  ];
+  const context = [
+    projectType && `Project type: ${projectType}`,
+    selectedMaterials.length && `Materials selected: ${selectedMaterials.join(', ')}`,
+    domainHostingStatus && `Domain / hosting status: ${domainHostingStatus}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+  return {
+    serviceInterest,
+    materialsAvailable,
+    message: context ? `${message}${message ? '\n\n' : ''}${context}` : message,
+  };
+}
 export function LeadForm({ type = 'consultation' }: { type?: 'consultation' | 'contact' }) {
   const id = useId();
   const requestId = useRef('');
@@ -76,12 +116,25 @@ export function LeadForm({ type = 'consultation' }: { type?: 'consultation' | 'c
     setErrors({});
     setStatus('');
     const form = new FormData(event.currentTarget);
+    const domainHostingStatus = String(form.get('domainHostingStatus') || '');
+    const projectType = String(form.get('projectType') || '');
+    const selectedMaterials = form.getAll('projectMaterials').map(String);
+    const message = String(form.get('message') || '');
+    form.delete('domainHostingStatus');
+    form.delete('projectType');
+    form.delete('projectMaterials');
+    const projectDetails = mapProjectDetails(
+      projectType,
+      selectedMaterials,
+      domainHostingStatus,
+      message,
+    );
     if (!requestId.current) requestId.current = crypto.randomUUID();
     const data = {
       ...Object.fromEntries(form),
+      ...projectDetails,
       type,
       consent: form.get('consent') === 'on',
-      materialsAvailable: form.getAll('materialsAvailable'),
       ...getAttribution(),
       requestId: requestId.current,
     };
@@ -159,27 +212,42 @@ export function LeadForm({ type = 'consultation' }: { type?: 'consultation' | 'c
               {field('subjectName', 'Name of person / family / organisation')}
               {field('livingStatus', 'Is the person:', ['Living', 'Late', 'Not applicable'])}
               {field('photoCountRange', 'Approximate photographs', photoRanges)}
-              <fieldset className="full">
-                <legend>What material do you currently have?</legend>
-                <div className="checks">
-                  {materials.map((v) => (
-                    <label key={v}>
-                      <input type="checkbox" name="materialsAvailable" value={v} />
-                      {v}
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
-              {field('serviceInterest', 'Which service interests you?', services)}
             </>
           )}
+          <fieldset className="full">
+            <legend>What material do you currently have?</legend>
+            <div className="checks">
+              {projectMaterials.map(([label]) => (
+                <label key={label}>
+                  <input type="checkbox" name="projectMaterials" value={label} />
+                  {label}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <label className="field" htmlFor={`${id}-projectType`}>
+            Project type
+            <select id={`${id}-projectType`} name="projectType" defaultValue="">
+              <option value="">Please select</option>
+              {projectTypes.map(([label]) => (
+                <option key={label}>{label}</option>
+              ))}
+            </select>
+          </label>
+          {field('domainHostingStatus', 'Do you already have a domain or hosting account?', [
+            'I have both',
+            'I have a domain only',
+            'I have hosting only',
+            'I have neither',
+            'Not sure',
+          ])}
           {field('preferredContactMethod', 'Preferred contact', ['WhatsApp', 'Email', 'Phone'])}
           <label className="field full" htmlFor={`${id}-message`}>
             {contact ? 'How can we help?' : 'Tell us about the legacy'}
             <textarea
               id={`${id}-message`}
               name="message"
-              maxLength={3000}
+              maxLength={2400}
               aria-invalid={!!errors.message}
             />
             {errors.message && <span className="error">{errors.message}</span>}
@@ -218,7 +286,7 @@ export function LeadForm({ type = 'consultation' }: { type?: 'consultation' | 'c
                   ? 'Request received'
                   : contact
                     ? 'Send My Enquiry'
-                    : 'Book My Legacy Consultation'}
+                    : 'Start Your Legacy Website'}
             </button>
             <p className="small" style={{ marginTop: 12 }}>
               This requests a conversation; it does not reserve a calendar appointment or create a

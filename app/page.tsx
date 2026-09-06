@@ -2,6 +2,8 @@ import {
   PageHero,
   AudienceCards,
   Capabilities,
+  WebsiteDeliverables,
+  OwnershipPanel,
   Process,
   Proof,
   TrustReasons,
@@ -18,12 +20,15 @@ export default function Home() {
 
       <aside className="service-note" aria-label="Service summary">
         <div className="wrap service-note-grid">
-          <strong>A guided, done-for-you service</strong>
-          <span>For families</span>
-          <span>For leaders</span>
-          <span>For organisations</span>
+          <strong>A complete, done-for-you website</strong>
+          <span>Your domain</span>
+          <span>Your hosting</span>
+          <span>Your content</span>
         </div>
       </aside>
+
+      <WebsiteDeliverables />
+      <OwnershipPanel />
 
       <section className="section wrap section-intro">
         <div>

@@ -5,16 +5,16 @@ import { pageHeroes } from '@/content/heroes';
 import { PageStructuredData } from '@/components/structured-data';
 import Link from 'next/link';
 export const metadata = pageMetadata(
-  'Digital Legacy Archive Services UK',
-  'Preserve biographies, family photographs, documents and oral histories with a professionally organised digital heritage archive in the UK.',
+  'Done-for-You Digital Heritage Websites UK',
+  'A complete digital legacy website planned, organised, designed, built and deployed to your own hosting account and custom domain.',
   '/services',
 );
 export default function Page() {
   return (
     <main id="main">
       <PageStructuredData
-        title="Digital Legacy Archive Services UK"
-        description="Professional digital legacy and heritage archive services for families, leaders and organisations."
+        title="Done-for-You Digital Heritage Websites UK"
+        description="Complete digital heritage websites for families, individuals, leaders and organisations."
         path="/services"
         kind="Service"
         breadcrumbs={[
@@ -26,13 +26,28 @@ export default function Page() {
       <section className="section wrap" id="services">
         <div className="section-intro">
           <div>
-            <p className="eyebrow">Digital heritage services</p>
-            <h2>Preservation shaped around your story and material.</h2>
+            <p className="eyebrow">The main service</p>
+            <h2>Done-for-You Digital Heritage Website</h2>
           </div>
           <p>
-            From a family biography to an organisational heritage archive, we help turn scattered
-            records into a clear, connected digital collection.
+            A complete website planned, organised, written, designed and built around your approved
+            stories and materials, then deployed to your hosting account and connected to your
+            custom domain.
           </p>
+        </div>
+        <div className="primary-service">
+          <p className="eyebrow">One complete outcome</p>
+          <h3>Your independent digital heritage website.</h3>
+          <p>
+            You provide the stories, photographs, documents and memories. We manage the project with
+            you from discovery to launch and handover. This is not a subscription platform, template
+            builder or collection of services you must assemble yourself.
+          </p>
+          <strong>Your domain. Your hosting. Your content. Your legacy.</strong>
+        </div>
+        <div className="section-heading">
+          <p className="eyebrow">Services that can be included within your project</p>
+          <h2>The supporting work behind the complete website.</h2>
         </div>
         <div className="grid">
           {serviceContent.map(([title, copy]) => (
@@ -47,7 +62,7 @@ export default function Page() {
           and a written scope, not automatic package inclusions.
         </p>
         <p>
-          <Link href="/packages">Compare our archive service starting points</Link> or{' '}
+          <Link href="/packages">Compare our legacy website project scopes</Link> or{' '}
           <Link href="/how-it-works">see how a LegacyHub project works</Link>.
         </p>
       </section>
