@@ -125,11 +125,12 @@ export default function Page() {
       <section className="section wrap resource-trust">
         <p className="eyebrow">About LegacyHub</p>
         <div>
-          <h2>Thoughtful digital archives for real family stories.</h2>
+          <h2>Complete digital heritage websites, thoughtfully built for you.</h2>
           <p>
-            LegacyHub Digital Heritage helps families, leaders and organisations preserve
-            photographs, biographies, documents and memories in professionally organised digital
-            archives.
+            LegacyHub Digital Heritage creates complete, done-for-you digital heritage websites for
+            families, individuals, leaders, veterans and organisations. We help organise approved
+            stories, photographs and records, build the website, connect the client’s custom domain
+            and deploy it to the client’s own hosting account.
           </p>
         </div>
       </section>
@@ -143,7 +144,7 @@ export default function Page() {
           <div>
             <p>Use the checklist to identify the material and memories that deserve context.</p>
             <a className="button button-light" href="#checklist-form">
-              Get the Free Checklist
+              Get the Free Guide
             </a>
           </div>
         </div>

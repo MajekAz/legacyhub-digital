@@ -21,13 +21,16 @@ export const familyLegacyChecklist = {
   thankYouPath: '/thank-you/family-legacy-checklist',
   downloadPath: '/downloads/LegacyHub_Family_Legacy_Preservation_Guide.pdf',
   hero: {
-    eyebrow: 'Free family legacy guide',
-    title: 'Preserve the stories your family should never lose.',
+    eyebrow: 'Free Family Legacy Guide',
+    title:
+      'Start preserving your family story — and discover what your legacy website could become.',
     description:
-      'Download our practical Family Legacy Preservation Checklist and discover the photographs, documents, memories and stories worth organising for future generations.',
+      'Get our free Family Legacy Preservation Checklist to identify the photographs, documents, memories and stories worth protecting. When you’re ready, LegacyHub can turn your approved material into a complete, done-for-you digital heritage website on your own hosting account and custom domain.',
+    ownershipStatement: 'Your story. Your domain. Your hosting. Your legacy.',
     backgroundImage: '/images/heroes/family-legacy.jpg',
     backgroundPosition: 'center 40%',
-    primaryCta: { label: 'Get the Free Checklist', href: '#checklist-form' },
+    primaryCta: { label: 'Get the Free Guide', href: '#checklist-form' },
+    secondaryCta: { label: 'Explore Done-for-You Legacy Websites', href: '/services' },
     minHeight: '70vh',
     overlay: 0.62,
     credit: {

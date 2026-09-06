@@ -14,7 +14,13 @@ import {
 import type { HeroAction, HeroContent } from '@/content/heroes';
 import { WhatsApp } from './whatsapp';
 
-function HeroLink({ action, secondary = false }: { action: HeroAction; secondary?: boolean }) {
+export function HeroLink({
+  action,
+  secondary = false,
+}: {
+  action: HeroAction;
+  secondary?: boolean;
+}) {
   const className = secondary ? 'hero-secondary-link' : 'button hero-primary-button';
   const eventProps = action.event ? { 'data-event': action.event } : {};
   const content = (
@@ -32,6 +38,14 @@ function HeroLink({ action, secondary = false }: { action: HeroAction; secondary
         rel="noopener noreferrer"
         {...eventProps}
       >
+        {content}
+      </a>
+    );
+  }
+
+  if (action.href.startsWith('#')) {
+    return (
+      <a className={className} href={action.href} {...eventProps}>
         {content}
       </a>
     );

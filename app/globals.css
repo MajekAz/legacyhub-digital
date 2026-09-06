@@ -1472,6 +1472,9 @@ body:has(main[data-funnel]) > .site-header {
   display: grid;
   gap: 14px;
 }
+#checklist-form {
+  scroll-margin-top: 24px;
+}
 .resource-trust {
   display: grid;
   grid-template-columns: minmax(160px, 0.35fr) minmax(0, 1fr);

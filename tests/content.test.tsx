@@ -14,6 +14,7 @@ import { StructuredData, PageStructuredData } from '@/components/structured-data
 import Resources from '@/app/resources/page';
 import { pageHeroes } from '@/content/heroes';
 import { familyLegacyChecklist } from '@/content/lead-magnets';
+import { HeroLink } from '@/components/sections';
 it('renders every consultation field and accessible consent', () => {
   const html = renderToStaticMarkup(<LeadForm />);
   for (const name of [
@@ -123,6 +124,23 @@ it('defines a unique, complete photographic hero for every major public route', 
     expect(existsSync(join(process.cwd(), 'public', hero.backgroundImage))).toBe(true);
   }
 });
+it('keeps fragment hero actions native while preserving internal and external links', () => {
+  const fragment = renderToStaticMarkup(
+    <HeroLink action={{ label: 'Jump to form', href: '#checklist-form' }} />,
+  );
+  const internal = renderToStaticMarkup(
+    <HeroLink action={{ label: 'View services', href: '/services' }} secondary />,
+  );
+  const external = renderToStaticMarkup(
+    <HeroLink action={{ label: 'View archive', href: 'https://example.com', external: true }} />,
+  );
+  expect(fragment).toContain('<a class="button hero-primary-button" href="#checklist-form">');
+  expect(fragment).not.toContain('target=');
+  expect(internal).toContain('href="/services"');
+  expect(external).toContain('target="_blank"');
+  expect(external).toContain('rel="noopener noreferrer"');
+  expect(readFileSync('components/sections.tsx', 'utf8')).toContain("action.href.startsWith('#')");
+});
 it('legal drafts transparently disclose review status', () => {
   for (const Page of [Privacy, Terms])
     expect(renderToStaticMarkup(<Page />)).toContain('Pre-launch review draft');
@@ -185,6 +203,12 @@ it('defines the checklist funnel with the approved production PDF', () => {
   expect(familyLegacyChecklist.downloadPath).toBe(
     '/downloads/LegacyHub_Family_Legacy_Preservation_Guide.pdf',
   );
+  expect(familyLegacyChecklist.hero.primaryCta).toEqual({
+    label: 'Get the Free Guide',
+    href: '#checklist-form',
+  });
+  expect(familyLegacyChecklist.hero.secondaryCta.href).toBe('/services');
+  expect(familyLegacyChecklist.hero.description).toContain('done-for-you digital heritage website');
   const pdf = readFileSync('public/downloads/LegacyHub_Family_Legacy_Preservation_Guide.pdf');
   expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
   expect(pdf.byteLength).toBeGreaterThan(1_000_000);
