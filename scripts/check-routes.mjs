@@ -35,7 +35,7 @@ for (const path of paths) {
     throw Error('Unsubscribe page must remain noindex');
   console.log(`PASS ${path}`);
 }
-for (const path of ['/sitemap.xml', '/robots.txt', '/og.png']) {
+for (const path of ['/sitemap.xml', '/robots.txt', '/og.png', '/og-done-for-you-v2.png']) {
   const response = await fetch(base + path);
   if (response.status !== 200) throw Error(`Failed ${path}`);
   console.log(`PASS ${path}`);
