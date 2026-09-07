@@ -152,14 +152,14 @@ it('page metadata has a page-specific canonical and complete social images', () 
       title: 'Family',
       images: [
         {
-          url: '/og.png',
+          url: '/og-done-for-you-v2.png',
           width: 1200,
           height: 630,
           alt: expect.stringContaining('Turn Your Memories Into a Beautiful Website'),
         },
       ],
     },
-    twitter: { card: 'summary_large_image', images: ['/og.png'] },
+    twitter: { card: 'summary_large_image', images: ['/og-done-for-you-v2.png'] },
   });
 });
 it('publishes a useful resources hub with contextual internal links', () => {

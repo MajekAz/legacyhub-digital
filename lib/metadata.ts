@@ -4,7 +4,7 @@ export const legacyHubSocialDescription =
   'Complete, done-for-you digital heritage websites for families, individuals, leaders, veterans and organisations — built around your stories and launched on your own domain and hosting.';
 
 export const legacyHubSocialImage = {
-  url: '/og.png',
+  url: '/og-done-for-you-v2.png',
   width: 1200,
   height: 630,
   alt: 'LegacyHub Digital Heritage social preview showing “Turn Your Memories Into a Beautiful Website” and a complete done-for-you digital heritage website offer.',
