@@ -148,7 +148,17 @@ it('legal drafts transparently disclose review status', () => {
 it('page metadata has a page-specific canonical and complete social images', () => {
   expect(pageMetadata('Family', 'Description', '/landing/family-legacy')).toMatchObject({
     alternates: { canonical: '/landing/family-legacy' },
-    openGraph: { title: 'Family', images: ['/og.png'] },
+    openGraph: {
+      title: 'Family',
+      images: [
+        {
+          url: '/og.png',
+          width: 1200,
+          height: 630,
+          alt: expect.stringContaining('Turn Your Memories Into a Beautiful Website'),
+        },
+      ],
+    },
     twitter: { card: 'summary_large_image', images: ['/og.png'] },
   });
 });

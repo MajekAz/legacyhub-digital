@@ -3,6 +3,7 @@ import Link from 'next/link';
 import './globals.css';
 import { PrivacyControls } from '@/components/privacy-controls';
 import { StructuredData } from '@/components/structured-data';
+import { legacyHubSocialDescription, legacyHubSocialImage } from '@/lib/metadata';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://legacyhubdigital.com'),
@@ -12,8 +13,7 @@ export const metadata: Metadata = {
     template: '%s | LegacyHub',
   },
 
-  description:
-    'Complete, done-for-you digital heritage websites for families, individuals, leaders and organisations, launched on each client’s domain and hosting.',
+  description: legacyHubSocialDescription,
 
   verification: {
     google: '91YejfQNdcqLH4xbMkaoJDemXQvfKI0vAhicbMUYe_0',
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Your Story. Your Website. Your Legacy.',
-    description: 'Complete, done-for-you digital heritage websites on your domain and hosting.',
-    images: ['/og.png'],
+    description: legacyHubSocialDescription,
+    images: [legacyHubSocialImage.url],
   },
 
   openGraph: {
@@ -35,15 +35,8 @@ export const metadata: Metadata = {
     locale: 'en_GB',
     siteName: 'LegacyHub Digital Heritage',
     title: 'Your Story. Your Website. Your Legacy.',
-    description: 'Complete, done-for-you digital heritage websites on your domain and hosting.',
-    images: [
-      {
-        url: '/og.png',
-        width: 1733,
-        height: 907,
-        alt: 'LegacyHub Digital Heritage — Preserve a Life. Protect a Story. Connect Generations.',
-      },
-    ],
+    description: legacyHubSocialDescription,
+    images: [legacyHubSocialImage],
   },
 };
 
